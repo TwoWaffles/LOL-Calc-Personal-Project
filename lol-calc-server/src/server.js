@@ -9,9 +9,9 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/status', (req,res) => {
+app.get('/getAllChampionNames', (req,res) => {
     res.send({
-        message: 'hello world'
+        champions: ["Draven", "Ashe", "Malphite"]
     })
 });
 
