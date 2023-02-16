@@ -2,11 +2,16 @@
 export default {
   data() {
     return {
-      // message: 'Hello World!'
+      message: 'Hello World!'
     }
-  }
+  },
+
+  props: ['test123']
+
+
 }
 </script>
+
 
 <template>
   <div>
@@ -14,8 +19,7 @@ export default {
     <input
     type = "text"
     name="chamption"
-    v-model="email"
-    placeholder="champion" />
+    :placeholder="test123" />
     <button>Search</button>
   </div>
 </template>

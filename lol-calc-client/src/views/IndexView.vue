@@ -4,7 +4,6 @@ import Test from '../components/Test.vue';
 export default {
   data() {
     return {
-      message: 'Hello World!',
       bomba: 'bomba',
       champions: []
     }
@@ -26,7 +25,6 @@ export default {
   <div>
     <h1>{{ champions }}</h1>
     <h2>{{ bomba }}</h2>
-    <h3>{{ someCall(5) }}</h3>
-    <Test />
+    <Test test123="bigxd"></Test>
   </div>
 </template>
