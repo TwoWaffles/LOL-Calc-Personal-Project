@@ -13,6 +13,8 @@ app.use(cors());
 
 //Functions
 
+//TODO: REFACTOR THIS AND GET ROUTE THING SO IT MAKES SENSE
+
 function filterChampionNamesAndIconsFromData(callback) {
   fs.readFile('data/champions.json', (error,data) => {
     if (error) throw error;
