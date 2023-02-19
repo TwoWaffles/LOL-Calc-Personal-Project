@@ -1,16 +1,20 @@
 <script>
+import DropdownChampions from '../components/dropdownChampions/DropdownChampions.vue';
+import DropdownItem from '../components/dropdownChampions/DropdownItem.vue';
 import Test from '../components/Test.vue';
 
 export default {
   data() {
     return {
       bomba: 'bomba',
-      champions: []
+      champions: ["test123","another123"]
     }
   },
   components: {
-    Test
-  },
+    Test,
+    DropdownChampions,
+    DropdownItem
+},
   methods: {
     getChampions() {
       //some axios call to get all champions and return them under the variable name champions
@@ -26,5 +30,7 @@ export default {
     <h1>{{ champions }}</h1>
     <h2>{{ bomba }}</h2>
     <Test test123="bigxd"></Test>
+    <!-- <DropdownChampions :champions=champions></DropdownChampions> -->
+    <DropdownItem></DropdownItem>
   </div>
 </template>

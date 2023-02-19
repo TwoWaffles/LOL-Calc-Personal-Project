@@ -26,12 +26,7 @@ function filterChampionNamesAndIconsFromData(callback) {
       championsArray.push([champions[champion].name,champions[champion].icon]);
     }
 
-    //console.log(championsArray)
-
     callback(championsArray);
-    //const namesAndIcons = champions.map(champion => ({name: champion.name, icon: champion.icon}));
-
-    //console.log(namesAndIcons);
   });
   
 }
@@ -49,13 +44,10 @@ function getChampionsJSON(){
     .catch(function (error) {
       // handle error
       console.log(error);
-    })
-    .finally(function () {
-      // always executed
     });
   }
 
-app.get('/getAllChampionNames', (req,res) => {
+app.get('/getAllChampionNamesAndIcons', (req,res) => {
 
     filterChampionNamesAndIconsFromData((dataToSend)=>{
       res.send({
