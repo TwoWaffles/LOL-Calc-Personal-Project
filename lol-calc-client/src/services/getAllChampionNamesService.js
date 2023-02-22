@@ -1,7 +1,7 @@
-import Api from '@services/Api';
+import Api from '@/services/Api.js';
 
 export default {
-    getAllChampionNames() {
-        return Api().get('getAllChampionNames');
+    getAllChampionNamesAndIcons() {
+        return Api().get('getAllChampionNamesAndIcons');
     }
 }

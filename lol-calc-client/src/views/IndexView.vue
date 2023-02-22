@@ -31,6 +31,6 @@ export default {
     <h2>{{ bomba }}</h2>
     <Test test123="bigxd"></Test>
     <!-- <DropdownChampions :champions=champions></DropdownChampions> -->
-    <DropdownItem></DropdownItem>
+    <DropdownChampions></DropdownChampions>
   </div>
 </template>
