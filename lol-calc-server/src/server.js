@@ -23,7 +23,7 @@ function filterChampionNamesAndIconsFromData(callback) {
 
     const champions = JSON.parse(data);
     for (const champion in champions){
-      championsArray.push([champions[champion].name,champions[champion].icon]);
+      championsArray.push([champions[champion].name,champions[champion].icon,champions[champion].key]);
     }
 
     callback(championsArray);
@@ -47,6 +47,8 @@ function getChampionsJSON(){
     });
   }
 
+//Handle Gets
+
 app.get('/getAllChampionNamesAndIcons', (req,res) => {
 
     filterChampionNamesAndIconsFromData((dataToSend)=>{
@@ -55,8 +57,13 @@ app.get('/getAllChampionNamesAndIcons', (req,res) => {
       })
 
     })
+});
 
-    
+app.get('/getChampionData', (req,res) => {
+
+ console.log(req.body)
+ console.log("poggies")
+
 });
 
 

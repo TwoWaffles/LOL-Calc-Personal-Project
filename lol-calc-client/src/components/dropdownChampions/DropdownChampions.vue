@@ -39,6 +39,7 @@ export default {
     selectChampion(champion) {
       this.selectedChampion = champion;
       this.isVisible = false;
+      this.$emit('championSelected',this.selectedChampion)
     }
   },
 
