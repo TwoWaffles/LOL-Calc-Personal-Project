@@ -31,6 +31,18 @@ function filterChampionNamesAndIconsFromData(callback) {
   
 }
 
+function filterSelectedChampionFromData(championKey) {
+  fs.readFile('data/champions.json', (error,data) => {
+    if (error) throw error;
+
+    const champions = JSON.parse(data);
+
+    console.log(champions[championKey]);
+
+
+  })
+}
+
 function getChampionsJSON(){
 
   axios.get('https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions.json')
@@ -61,8 +73,8 @@ app.get('/getAllChampionNamesAndIcons', (req,res) => {
 
 app.get('/getChampionData', (req,res) => {
 
- console.log(req.body)
- console.log("poggies")
+ console.log(req.query.championKey);
+ filterSelectedChampionFromData(req.query.championKey);
 
 });
 

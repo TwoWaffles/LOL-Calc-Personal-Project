@@ -26,12 +26,15 @@ export default {
 
     testLog(champion){
       console.log(champion + " was just selected") 
-
       getChampionDataService.getChampionData("Draven")
     .then(response => {
       console.log(response.data)
       this.championsArray = response.data.champions;
     })
+    },
+
+    async getChampionData(championKey) {
+      this.championOne = await getChampionDataService.getChampionData(championKey);
     }
   }
 }
@@ -43,6 +46,6 @@ export default {
     <h2>{{ bomba }}</h2>
     <Test test123="bigxd"></Test>
     <!-- <DropdownChampions :champions=champions></DropdownChampions> -->
-    <DropdownChampions @championSelected="testLog"></DropdownChampions>
+    <DropdownChampions @championSelected="getChampionData"></DropdownChampions>
   </div>
 </template>

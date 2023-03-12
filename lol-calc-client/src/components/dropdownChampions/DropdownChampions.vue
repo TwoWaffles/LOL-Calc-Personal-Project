@@ -28,6 +28,7 @@ export default {
   },
 
   mounted() {
+    //This receives name,icon,key
     getAllChampionNamesService.getAllChampionNamesAndIcons()
     .then(response => {
       console.log(response.data)
@@ -39,7 +40,9 @@ export default {
     selectChampion(champion) {
       this.selectedChampion = champion;
       this.isVisible = false;
-      this.$emit('championSelected',this.selectedChampion)
+      console.log("this was just select:" + this.selectedChampion)
+      //Emits the champion key from the name,icon,key array
+      this.$emit('championSelected',this.selectedChampion[2])
     }
   },
 
