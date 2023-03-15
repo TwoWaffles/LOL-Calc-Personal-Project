@@ -36,8 +36,18 @@ function filterSelectedChampionFromData(championKey) {
     if (error) throw error;
 
     const champions = JSON.parse(data);
+    const champion = champions[championKey];
 
-    console.log(champions[championKey]);
+    const allowed = ['key', 'stats', 'resource', 'abilities', 'attackType'];
+
+    const filtered = Object.keys(champion)
+      .filter(key => allowed.includes(key))
+      .reduce((obj, key) => {
+        obj[key] = champion[key];
+        return obj;
+      }, {});
+
+    console.log(filtered);
 
 
   })
