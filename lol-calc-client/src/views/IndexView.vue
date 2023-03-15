@@ -41,14 +41,31 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h1>{{ champions }}</h1>
-    <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-    <h2>{{ bomba }}</h2>
-    <Test test123="bigxd"></Test>
-    <!-- <DropdownChampions :champions=champions></DropdownChampions> -->
-    <DropdownChampions @championSelected="getChampionData"></DropdownChampions>
+  <div class="flex flex-row justify-between px-12 py-8 gap-4 h-screen">
+    <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
+      <div>
+        <DropdownChampions @championSelected="getChampionData"></DropdownChampions>
+      </div>
+    </div>
+    <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
+
+    </div>
+    <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
+
+    </div>
+    <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
+
+    </div>
   </div>
 </template>
+
+
+  // <!-- <div>
+  //    <h1>{{ champions }}</h1>
+  //    <h1 class="text-3xl font-bold underline">
+  //    Hello world!
+  //    </h1>
+  //    <h2>{{ bomba }}</h2>
+  //    <Test test123="bigxd"></Test>
+  //    <DropdownChampions @championSelected="getChampionData"></DropdownChampions>
+  //  </div> -->

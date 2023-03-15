@@ -52,63 +52,44 @@ export default {
 }
 </script>
 
-
 <template>
-  <section class = "ddWrapper">
-    <div @click="isVisible = !isVisible" class="selectedItem">
-      <span v-if="selectedChampion"> {{ selectedChampion[0] }} </span>
-      <span v-else> Select A Champion</span>
-      <svg :class="isVisible ? 'ddArrowDown' : 'ddArrowUp'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z"/></svg>
+  <section class="relative">
+    <div @click="isVisible = !isVisible" class="border border-blue-800 bg-blue-300 rounded-md p-2 flex justify-between items-center cursor-pointer">
+      <!-- <span class="text-black-800">{{ selectedChampion ? selectedChampion[0] && selectedChampion[1] : 'Select a Champion' }}</span> -->
+      <span v-if="selectedChampion" class="text-black-800">
+        <div class="flex flex-row items-center">
+          <img :src="selectedChampion[1]" class="h-8 w-8 rounded-full">
+          <div class="pl-2">{{ selectedChampion[0] }}</div>
+        </div>
+      </span>
+      <span v-else>
+        Select A Champion
+      </span>
+      <svg :class="isVisible ? 'ddArrowDown' : 'ddArrowUp'" class="h-4 w-4 text-gray-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M19 9l-7 7-7-7"></path>
+      </svg>
     </div>
 
-    <div v-show = "isVisible" class="ddPopover">
-      <input v-model="searchQuery" type="text" placeholder="Search For A Champion">
-      <span v-if="filteredChampions.length === 0">Couldn't Find Champion</span>
-      <div class="championsToSelect">
-        <ul>
-          <li @click="selectChampion(champion)" v-for="(champion , index) in filteredChampions" :key="`champion-${index}`" >
-            <img :src="champion[1]">
-            {{ champion[0] }}
-          </li>
-        </ul>
+    <div v-show="isVisible" class="absolute z-50 mt-2 py-2 w-full bg-blue-200 rounded-md shadow-lg select-none ...">
+      <div class="relative">
+        <input v-model="searchQuery" type="text" class="block w-full rounded-md border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for a Champion">
       </div>
-    </div>
 
+      <ul class="mt-2 max-h-60 overflow-y-auto">
+        <li v-for="(champion, index) in filteredChampions" :key="`champion-${index}`" class="cursor-pointer py-1 px-3 hover:bg-blue-500 hover:text-white" @click="selectChampion(champion)">
+         <div class="flex flex-row items-center">
+          <img :src="champion[1]" class="h-7 w-7 inline-block mr-2 rounded-full">
+          <span class="">{{ champion[0] }}</span>
+        </div>
+        </li>
+
+        <li v-if="filteredChampions.length === 0" class="px-3 py-2">Couldn't find a Champion</li>
+      </ul>
+    </div>
   </section>
 </template>
 
 <style scoped>
-
-.ddWrapper {
-  max-width: 350px;
-  position: relative;
-  margin: 0 auto;
-}
-
-.selectedItem {
-  height: 40px;
-  border: 2px solid lightgray;
-  border-radius: 5px;
-  padding: 5px 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.ddPopover {
-  position: absolute;
-  border: 2px solid lightgray;
-  top: 46px;
-  left: 0px;
-  right: 0px;
-  background-color: white;
-  width: 100%;
-  max-width: 100%;
-  padding: 10px;
-}
-
 .ddArrowDown {
   transform: rotate(180deg);
   transition: all .5s ease;
@@ -118,41 +99,4 @@ export default {
   transform: rotate(0deg);
   transition: all .5s ease;
 }
-
-input {
-  width: 90%;
-  height: 30px;
-  border: 2px solid lightgray;
-  font-size: 16px;
-  padding-left: 5px;
-}
-
-.championsToSelect {
-  width: 100%;
-}
-
-.championsToSelect ul {
-  list-style: none;
-  text-align: left;
-  padding-left: 8px;
-  max-height: 200px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  border: 1xp solid lightgray;
-}
-
-.championsToSelect li {
-  width: 100%;
-  border-bottom: 1px solid lightgray;
-  padding: 10px;
-  background-color: #f1f1f1;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.championsToSelect li:hover{
-  background: darkgray;
-  font-weight: bold;
-}
-
 </style>
