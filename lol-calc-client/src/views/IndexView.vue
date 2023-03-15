@@ -43,6 +43,9 @@ export default {
 <template>
   <div>
     <h1>{{ champions }}</h1>
+    <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
     <h2>{{ bomba }}</h2>
     <Test test123="bigxd"></Test>
     <!-- <DropdownChampions :champions=champions></DropdownChampions> -->
