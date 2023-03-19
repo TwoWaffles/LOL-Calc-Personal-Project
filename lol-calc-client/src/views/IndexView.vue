@@ -34,7 +34,9 @@ export default {
     },
 
     async getChampionData(championKey) {
-      this.championOne = await getChampionDataService.getChampionData(championKey);
+      const response = await getChampionDataService.getChampionData(championKey);
+      console.log(response.data);
+      this.championOne = response.data;
     }
   }
 }
@@ -48,7 +50,7 @@ export default {
       </div>
     </div>
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
-
+      {{ championOne }}
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
 

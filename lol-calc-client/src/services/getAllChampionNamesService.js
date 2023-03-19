@@ -2,6 +2,6 @@ import Api from '@/services/Api.js';
 
 export default {
     getAllChampionNamesAndIcons() {
-        return Api().get('getAllChampionNamesAndIcons');
+        return Api().get('champions/getAllChampionNamesAndIcons');
     }
 }
