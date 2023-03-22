@@ -42,14 +42,14 @@ function filterChampionNamesAndIconsFromData(callback) {
     })
   }
   
-  function getChampionsJSON(){
+  function downloadChampionsJSON(){
   
     axios.get('https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions.json')
       .then(function (response) {
         // handle success
         fs.writeFile('data/champions.json',JSON.stringify(response.data) , function(error) {
             if (error) throw error;
-            console.log('Saved!');
+            console.log('Saved Champions!');
         });
       })
       .catch(function (error) {

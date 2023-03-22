@@ -1,6 +1,7 @@
 <script>
 import DropdownChampions from '../components/dropdownChampions/DropdownChampions.vue';
-import DropdownItem from '../components/dropdownChampions/DropdownItem.vue';
+import ChampionDisplay from '../components/ChampionDisplay.vue';
+import DropdownLevel from '../components/dropdownChampions/DropdownLevel.vue';
 import Test from '../components/Test.vue';
 import getChampionDataService from '../services/getChampionDataService';
 
@@ -9,13 +10,15 @@ export default {
     return {
       bomba: 'bomba',
       champions: ["test123","another123"],
-      championOne : null,
+      championOne: null,
+      championOneLevel: null,
     }
   },
   components: {
     Test,
     DropdownChampions,
-    DropdownItem
+    ChampionDisplay,
+    DropdownLevel
 },
   methods: {
     getChampions() {
@@ -37,6 +40,10 @@ export default {
       const response = await getChampionDataService.getChampionData(championKey);
       console.log(response.data);
       this.championOne = response.data;
+    },
+
+    onLevelUpdate(newLevel) {
+      this.championOneLevel = newLevel;
     }
   }
 }
@@ -45,12 +52,14 @@ export default {
 <template>
   <div class="flex flex-row justify-between px-12 py-8 gap-4 h-screen">
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
-      <div>
-        <DropdownChampions @championSelected="getChampionData"></DropdownChampions>
+      <div class="flex flex-row">
+        <DropdownChampions class="w-2/3" @championSelected="getChampionData"></DropdownChampions>
+        <DropdownLevel class="w-1/3" @levelSelected="onLevelUpdate"></DropdownLevel>
       </div>
+      <ChampionDisplay :stats="championOne.stats" :level="championOneLevel" v-if="championOne && championOneLevel !== null"></ChampionDisplay>
     </div>
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
-      {{ championOne }}
+      <!-- {{ championOne }} -->
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
 
