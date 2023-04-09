@@ -1,5 +1,5 @@
 <script>
-const STATS_TO_DISPLAY = ["attackDamage","abilityPower","armor","magicResistance","attackSpeed","abilityHaste","criticalStrikeChance","movespeed"];
+const STATS_TO_DISPLAY = ["attackDamage","abilityPower","armor","magicResistance","attackSpeed","abilityHaste","criticalStrikeChance","movespeed","healthRegen","manaRegen"];
     export default {
         data() {
             return {
@@ -15,6 +15,7 @@ const STATS_TO_DISPLAY = ["attackDamage","abilityPower","armor","magicResistance
                 const calculatedStat = stat.flat + stat.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
                 // return Math.ceil(calculatedStat)
                 // TODO: handle attack speed differently I guess
+                // if(stat === "attackSpeed"){}
                 return calculatedStat
             }
         }
