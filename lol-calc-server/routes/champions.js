@@ -36,6 +36,28 @@ function filterChampionNamesAndIconsFromData(callback) {
           obj[key] = champion[key];
           return obj;
         }, {});
+
+        //Add extra stats to data before sending to frontend for easier handling in the frontend
+        filtered.stats.abilityPower = {
+          "flat": 0,
+          "percent": 0,
+          "perLevel": 0,
+          "percentPerLevel": 0
+      };
+
+      filtered.stats.abilityHaste = {
+          "flat": 0,
+          "percent": 0,
+          "perLevel": 0,
+          "percentPerLevel": 0
+      };
+
+      filtered.stats.criticalStrikeChance = {
+        "flat": 0,
+        "percent": 0,
+        "perLevel": 0,
+        "percentPerLevel": 0
+      }
   
       //console.log(filtered);
       callback(filtered)
