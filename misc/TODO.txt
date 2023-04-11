@@ -6,3 +6,9 @@ Finish of the stats table:
     also how to neatly allow me to easily add items to these calcuations and runes
 
 start thinking about the item picker and rune/masteries
+
+Notes:
+
+- went from store based to query param baseed to share builds etc.
+
+- use item description from riot games
