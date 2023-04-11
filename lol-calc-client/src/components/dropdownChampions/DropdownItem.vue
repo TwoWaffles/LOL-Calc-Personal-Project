@@ -17,6 +17,7 @@ export default {
   <div class = "item">
     <img src="http://ddragon.leagueoflegends.com/cdn/13.3.1/img/champion/Draven.png">
     <label >Draven</label>
+    <!--  not used rn -->
   </div>
 </template>
 
