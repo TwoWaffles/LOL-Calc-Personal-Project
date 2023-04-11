@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+    .single-item {
+        @apply border-2 border-dashed rounded h-14 w-14 bg-gray-600 text-5xl text-center flex justify-center items-center
+    }
+}

@@ -4,6 +4,7 @@ import ChampionDisplay from '../components/ChampionDisplay.vue';
 import DropdownLevel from '../components/dropdownChampions/DropdownLevel.vue';
 import Test from '../components/Test.vue';
 import getChampionDataService from '../services/getChampionDataService';
+import ItemInventory from '../components/itemPicker/ItemInventory.vue';
 
 export default {
   data() {
@@ -18,7 +19,8 @@ export default {
     Test,
     DropdownChampions,
     ChampionDisplay,
-    DropdownLevel
+    DropdownLevel,
+    ItemInventory
 },
   methods: {
     getChampions() {
@@ -56,6 +58,7 @@ export default {
         <DropdownChampions class="w-2/3" @championSelected="getChampionData"></DropdownChampions>
         <DropdownLevel class="w-1/3" @levelSelected="onLevelUpdate"></DropdownLevel>
       </div>
+      <ItemInventory></ItemInventory>
       <ChampionDisplay :stats="championOne.stats" :level="championOneLevel" :resource="championOne.resource" v-if="championOne && championOneLevel !== null"></ChampionDisplay>
     </div>
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
