@@ -61,7 +61,7 @@ function filterChampionNamesAndIconsFromData(callback) {
   
       //console.log(filtered);
       callback(filtered)
-    })
+    });
   }
   
   function downloadChampionsJSON(){

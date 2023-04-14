@@ -24,4 +24,32 @@ router.get('/', (req, res) => {
 });
 
 
+function filterItemNameAndInfoForPicker(callback){
+
+  fs.readFile('data/items.json', (error,data) => {
+    if (error) throw error;
+
+    let itemsArray = []
+
+    const items = JSON.parse(data);
+    for (const item in items){
+      itemsArray.push([items[item].name]);
+    }
+    console.log(itemsArray);
+    callback(itemsArray);
+  });
+
+}
+
+router.get('/getAllItemNamesAndInfo', (req,res) => {
+
+  filterItemNameAndInfoForPicker((dataToSend)=>{
+    res.send({
+        items: dataToSend
+    });
+
+  });
+});
+
+
 module.exports = router;
