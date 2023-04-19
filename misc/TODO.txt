@@ -9,6 +9,8 @@ start thinking about the item picker and rune/masteries
 
 rewrite seperate way to calculate stats
 
+trying to install pinia
+
 Notes:
 
 - went from store based to query param baseed to share builds etc.
