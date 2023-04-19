@@ -1,0 +1,12 @@
+Health
+Resource
+
+
+AD
+AP
+AS
+AR
+MR
+Pen
+Range
+MS

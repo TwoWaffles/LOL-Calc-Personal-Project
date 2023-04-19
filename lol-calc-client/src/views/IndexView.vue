@@ -6,7 +6,15 @@ import Test from '../components/Test.vue';
 import getChampionDataService from '../services/getChampionDataService';
 import ItemInventory from '../components/itemPicker/ItemInventory.vue';
 
+import { useChampionOneStore } from '../stores/ChampionOneStore';
+
 export default {
+  setup() {
+    const championOneStore = useChampionOneStore()
+
+    return { championOneStore }
+  },
+
   data() {
     return {
       bomba: 'bomba',
@@ -65,7 +73,7 @@ export default {
       <!-- {{ championOne }} -->
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
-
+      {{ championOneStore.testArray }}
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
 

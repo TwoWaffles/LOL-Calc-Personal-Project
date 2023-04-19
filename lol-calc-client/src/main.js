@@ -5,6 +5,11 @@ import router from './router'
 
 import './assets/style.css'
 
+// State management library
+import { createPinia, PiniaVuePlugin } from 'pinia'
+
+Vue.use(PiniaVuePlugin)
+
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -22,5 +27,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 new Vue({
   router,
+  pinia: createPinia(),
   render: (h) => h(App)
 }).$mount('#app')
