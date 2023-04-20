@@ -24,16 +24,16 @@ export default {
     <div class="grid grid-cols-2 bg-gray-900 text-white mt-5">
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/health_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span class="">{{ championOneStore.calculatedStats.health }}</span>
+            <span class="">{{ championOneStore.computedStats.health }}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/mana_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span v-if="championOneStore.resource === 'MANA'" class="">{{ championOneStore.calculatedStats.mana }}</span>
+            <span v-if="championOneStore.resource === 'MANA'" class="">{{ championOneStore.computedStats.mana }}</span>
             <span v-else>{{ championOneStore.resource }}</span>
         </div>
         <div class="hover:bg-gray-700" v-for="stat in STATS_TO_DISPLAY">
             <img :src="`/src/assets/statIcons/${stat}_icon.png`" class="h-5 w-5 inline-block mr-2">
-            <span class="">{{ championOneStore.calculatedStats[stat] }}</span>
+            <span class="">{{ championOneStore.computedStats[stat] }}</span>
         </div>
     </div>
 </template>
