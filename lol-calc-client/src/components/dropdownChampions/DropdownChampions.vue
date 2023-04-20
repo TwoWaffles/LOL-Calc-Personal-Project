@@ -1,6 +1,13 @@
 <script>
 import getAllChampionNamesService from '../../services/getAllChampionNamesService';
+import { useChampionOneStore } from '../../stores/ChampionOneStore';
 export default {
+  setup() {
+    const championOneStore = useChampionOneStore()
+
+    return { championOneStore }
+  },
+
   data() {
     return {
         searchQuery: '',
@@ -37,12 +44,20 @@ export default {
   },
 
   methods: {
-    selectChampion(champion) {
+    selectChampion1(champion) {
       this.selectedChampion = champion;
       this.isVisible = false;
       console.log("this was just select:" + this.selectedChampion)
       //Emits the champion key from the name,icon,key array
       this.$emit('championSelected',this.selectedChampion[2])
+    },
+
+    selectChampion(champion) {
+      this.selectedChampion = champion;
+      this.isVisible = false;
+      console.log("this was just select:" + this.selectedChampion)
+      //Emits the champion key from the name,icon,key array
+      this.championOneStore.getChampionData(this.selectedChampion[2])
     }
   },
 
@@ -86,6 +101,7 @@ export default {
         <li v-if="filteredChampions.length === 0" class="px-3 py-2">Couldn't find a Champion</li>
       </ul>
     </div>
+
   </section>
 </template>
 

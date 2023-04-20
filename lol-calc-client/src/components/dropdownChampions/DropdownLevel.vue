@@ -1,17 +1,20 @@
 <script>
+import { useChampionOneStore } from '../../stores/ChampionOneStore'
 
 const LEVEL_CAP = 18
 export default {
+  setup() {
+    const championOneStore = useChampionOneStore()
+
+    return { championOneStore }
+  },
+
   data() {
     return {
         selectedLevel: null,
         isVisible: false,
         LEVEL_CAP: LEVEL_CAP
     }
-  },
-
-  computed: {
-    
   },
 
   mounted() {
@@ -23,7 +26,8 @@ export default {
       this.isVisible = false;
       console.log("this level was just selected:" + this.selectedLevel)
       //Emits the champion key from the name,icon,key array
-      this.$emit('levelSelected',this.selectedLevel)
+      //this.$emit('levelSelected',this.selectedLevel)
+      this.championOneStore.setLevel(this.selectedLevel);
     }
   },
 
