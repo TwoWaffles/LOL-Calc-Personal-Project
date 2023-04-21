@@ -107,9 +107,12 @@ export default {
                 <!-- <div class="single-item">
                     <img src="https://raw.communitydragon.org/13.6/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/1001_class_t1_bootsofspeed.png" class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-700">
                 </div> -->
-                <div v-for="(item, index) in filteredItems" :key="`item-${index}`" class="single-item">
+                <div v-for="(item, index) in filteredItems" :key="`item-${index}`" class="single-item group">
                     <img @click="selectItem(item)" :src="item[2]"
                         class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-500">
+                    <span class="item-tooltip group-hover:scale-100">
+                       {{ item[1] }}
+                    </span>
                 </div>
             </div>
     </div>
