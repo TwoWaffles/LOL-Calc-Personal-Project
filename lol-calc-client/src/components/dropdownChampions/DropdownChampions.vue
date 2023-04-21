@@ -1,5 +1,5 @@
 <script>
-import getAllChampionNamesService from '../../services/getAllChampionNamesService';
+import ChampionsService from '../../services/ChampionsService';
 import { useChampionOneStore } from '../../stores/ChampionOneStore';
 export default {
   setup() {
@@ -36,7 +36,7 @@ export default {
 
   mounted() {
     //This receives name,icon,key
-    getAllChampionNamesService.getAllChampionNamesAndIcons()
+    ChampionsService.getAllChampionNamesAndIcons()
     .then(response => {
       console.log(response.data)
       this.championsArray = response.data.champions;
@@ -44,14 +44,6 @@ export default {
   },
 
   methods: {
-    selectChampion1(champion) {
-      this.selectedChampion = champion;
-      this.isVisible = false;
-      console.log("this was just select:" + this.selectedChampion)
-      //Emits the champion key from the name,icon,key array
-      this.$emit('championSelected',this.selectedChampion[2])
-    },
-
     selectChampion(champion) {
       this.selectedChampion = champion;
       this.isVisible = false;

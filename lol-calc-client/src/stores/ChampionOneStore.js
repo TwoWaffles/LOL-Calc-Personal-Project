@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { set } from 'vue';
-import getChampionDataService from '../services/getChampionDataService';
+import ChampionsService from '../services/ChampionsService'
 
 export const useChampionOneStore = defineStore('championOneStore', {
     state: () => ({
@@ -45,7 +44,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
 
     actions: {
         async getChampionData(championKey) {
-            const response = await getChampionDataService.getChampionData(championKey);
+            const response = await ChampionsService.getChampionData(championKey);
             //console.log(response.data);
 
             for (const [key, value] of Object.entries(response.data)) {

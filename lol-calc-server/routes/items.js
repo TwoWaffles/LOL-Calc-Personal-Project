@@ -33,7 +33,7 @@ function filterItemNameAndInfoForPicker(callback){
 
     const items = JSON.parse(data);
     for (const item in items){
-      itemsArray.push([items[item].name]);
+      itemsArray.push([items[item].id,items[item].name,items[item].icon,items[item].simpleDescription]);
     }
     console.log(itemsArray);
     callback(itemsArray);
