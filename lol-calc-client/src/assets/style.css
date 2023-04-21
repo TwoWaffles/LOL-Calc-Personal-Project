@@ -13,6 +13,6 @@
     .single-item-empty {
         @apply border-2 border-dashed rounded h-14 w-14 bg-gray-600
                text-5xl text-center flex justify-center items-center
-               hover:bg-gray-500 cursor-pointer;
+               hover:bg-gray-500 hover:border-solid cursor-pointer;
     }
 }
