@@ -3,7 +3,6 @@ import ChampionsService from '../services/ChampionsService'
 
 export const useChampionOneStore = defineStore('championOneStore', {
     state: () => ({
-        calculatedStats: {},
         level: 1,
         key: "",
         resource: "",

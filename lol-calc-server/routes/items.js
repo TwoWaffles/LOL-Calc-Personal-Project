@@ -41,6 +41,27 @@ function filterItemNameAndInfoForPicker(callback){
 
 }
 
+function filterSelectedItem(itemId, callback) {
+  fs.readFile('data/items.json', (error,data) => {
+    if (error) throw error;
+
+    const items = JSON.parse(data);
+    const item = items[itemId];
+
+    // const allowed = ['key', 'stats', 'resource', 'abilities', 'attackType'];
+
+    // const filtered = Object.keys(item)
+    //   .filter(key => allowed.includes(key))
+    //   .reduce((obj, key) => {
+    //     obj[key] = item[key];
+    //     return obj;
+    //   }, {});
+
+    //console.log(filtered);
+    callback(item)
+  });
+}
+
 router.get('/getAllItemNamesAndInfo', (req,res) => {
 
   filterItemNameAndInfoForPicker((dataToSend)=>{
@@ -49,6 +70,12 @@ router.get('/getAllItemNamesAndInfo', (req,res) => {
     });
 
   });
+});
+
+router.get('/getItemData', (req,res) => {
+  filterSelectedItem(req.query.itemId,(dataToSend) => {
+    res.json(dataToSend);
+  })
 });
 
 
