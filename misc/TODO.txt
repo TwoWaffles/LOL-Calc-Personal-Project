@@ -1,15 +1,22 @@
+remove useless items with rank minion and turret etc.
+
+figure out tooltips, use videos or something
+
+
 Finish of the stats table:
-    attack speed calc
     crit being %
     displaying lethality and armour pen seperatley (magic pen, lifesteal) armour pen is stored as %
 
-    also how to neatly allow me to easily add items to these calcuations and runes
+    also how to neatly allow me to easily add items to these calcuations and runes (store i guess)
 
-start thinking about the item picker and rune/masteries
+start thinking about rune/masteries
 
-rewrite seperate way to calculate stats
 
-simpleItemDesc can be null
+
+
+Keep in mind:
+
+- simpleItemDesc can be null
 
 Notes:
 
