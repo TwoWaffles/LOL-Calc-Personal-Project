@@ -71,9 +71,7 @@ export default {
 
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
-      {{ championOneStore.level }}
       
-      {{ championOneStore.calculatedStats.health }}
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
 
