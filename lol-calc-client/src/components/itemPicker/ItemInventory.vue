@@ -8,7 +8,7 @@ export default {
             selectedItemSlot: null,
             isVisible: false,
             itemsArray: [],
-            inventoryArray: [null,null,null,null,null,null]
+            inventoryArray: [null, null, null, null, null, null]
         }
     },
 
@@ -111,12 +111,13 @@ export default {
                     <img @click="selectItem(item)" :src="item[2]"
                         class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-500">
                     <span class="item-tooltip group-hover:scale-100">
-                       {{ item[1] }}
+                        {{ item[1] }}
                     </span>
                 </div>
             </div>
-    </div>
+        </div>
 
-</div></template>
+    </div>
+</template>
 
 <style scoped></style>
