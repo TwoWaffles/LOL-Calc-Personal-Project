@@ -1,6 +1,11 @@
+ 
+ 
 <script>
 import ItemsService from '../../services/ItemsService';
-
+import Popper from 'vue-popperjs';
+import 'vue-popperjs/dist/vue-popper.css';
+ 
+ 
 export default {
     data() {
         return {
@@ -8,31 +13,32 @@ export default {
             selectedItemSlot: null,
             isVisible: false,
             itemsArray: [],
-            inventoryArray: [null, null, null, null, null, null]
+            inventoryArray: [null, null, null, null, null, null],
+            hoverIndex: -1,
         }
     },
-
     computed: {
         filteredItems() {
             const query = this.searchQuery1.toLowerCase()
             if (this.searchQuery = "") {
                 return this.itemsArray;
             }
-
+ 
             return this.itemsArray.filter((item) => {
                 const name = item[1].toLowerCase();
                 return name.includes(query);
             });
         }
     },
-
+    components: {
+        'popper': Popper
+    },
     mounted() {
         ItemsService.getAllItemNamesAndInfo().then(response => {
             console.log(response.data);
             this.itemsArray = response.data.items
         })
     },
-
     methods: {
         inventorySlotOnClick(slotNumber) {
             if (this.selectedItemSlot === slotNumber) {
@@ -40,11 +46,11 @@ export default {
                 this.selectedItemSlot = null;
                 return;
             }
-
+ 
             if (this.selectedItemSlot === null) {
                 this.isVisible = !this.isVisible;
             }
-
+ 
             this.selectedItemSlot = slotNumber;
             console.log("Item slot " + slotNumber + " has been selected")
         },
@@ -56,12 +62,9 @@ export default {
             //this.store get item
         }
     }
-
-
-
 }
 </script>
-
+ 
 <template>
     <div>
         <div class="flex flex-row justify-between mt-2">
@@ -96,28 +99,34 @@ export default {
                 <img v-else :src="inventoryArray[5][2]">
             </div>
         </div>
-
+ 
         <div v-show="isVisible" class="border mt-2">
             <div class="relative">
                 <input v-model="searchQuery1" type="text"
                     class="block w-full rounded-md border-gray-300 shadow-sm p-2 mb-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Search for an item">
+                    placeholder="Search for an item" />
             </div>
-            <div class="grid grid-cols-6 gap-2 max-h-96 overflow-y-auto">
-                <!-- <div class="single-item">
-                    <img src="https://raw.communitydragon.org/13.6/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/1001_class_t1_bootsofspeed.png" class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-700">
-                </div> -->
-                <div v-for="(item, index) in filteredItems" :key="`item-${index}`" class="single-item group">
-                    <img @click="selectItem(item)" :src="item[2]"
-                        class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-500">
-                    <span class="item-tooltip group-hover:scale-100">
-                        {{ item[1] }}
-                    </span>
+            <div class="grid grid-cols-6 gap-2 max-h-96 overflow-y-auto overflow-x-clip">
+                <div v-for="(item, index) in filteredItems" :key="`item-${index}`" class="single-item group relative">
+                <popper trigger="hover" :options="{ placement: 'top', modifiers: { offset: { offset: '0,10px' } } }">
+                    <div class="popper bg-gray-700 text-white text-xs rounded p-1 pointer-events-none">
+                    {{ item[1] }}
+                    </div>
+                    
+                    <img slot="reference" @click="selectItem(item)" :src="item[2]"
+                        class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-500" />
+                </popper>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
-
-<style scoped></style>
+ 
+<style scoped>
+.tooltip {
+    transition: opacity 0.1s ease-in-out;
+    z-index: 10000;
+}
+ 
+</style>
+ 
