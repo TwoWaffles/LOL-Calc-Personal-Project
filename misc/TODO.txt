@@ -7,7 +7,14 @@ Finish of the stats table:
     crit being %
     displaying lethality and armour pen seperatley (magic pen, lifesteal) armour pen is stored as %
 
+    remove the useless aram data etc.
+
     also how to neatly allow me to easily add items to these calcuations and runes (store i guess)
+        - add items to the store
+        - calculate one item stuff
+        - do it for all
+
+    
 
 start thinking about rune/masteries
 
