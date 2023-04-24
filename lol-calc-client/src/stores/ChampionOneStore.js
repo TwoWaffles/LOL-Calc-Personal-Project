@@ -10,7 +10,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
         attackType: "",
         stats: {},
         abilities: {},
-        items: {}
+        items: {},
+        calculatedData: {}
 
     }),
 
@@ -67,6 +68,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
                 this[key] = value
             }
 
+            this.calculateStats()
+
 
         },
 
@@ -76,23 +79,26 @@ export const useChampionOneStore = defineStore('championOneStore', {
             console.log(response.data)
 
             this.items[itemSlotNumber] = response.data
+
+            this.calculateStats()
             
         },
 
         setLevel(level) {
             this.level = level;
+            this.calculateStats()
         },
 
-        // calculateStats(){
-        //     console.log("calculating")
+        calculateStats(){
+            console.log("calculating")
 
-        //     // TODO: add cases for attack speed etc. also items
+            // TODO: add cases for attack speed etc. also items
 
-        //     for(const [key, value] of Object.entries(this.stats)){
-        //         const calculatedStat = value.flat + value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
-        //         set(this.calculatedStats, key, calculatedStat);
-        //     }
-        // }
+            for(const [key, value] of Object.entries(this.stats)){
+                const calculatedStat = value.flat + value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
+                this.calculatedData[key] = calculatedStat
+            }
+        }
 
 
     }
