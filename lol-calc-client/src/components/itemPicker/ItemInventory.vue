@@ -1,20 +1,23 @@
- 
- 
 <script>
 import ItemsService from '../../services/ItemsService';
 import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
+import { useChampionOneStore } from '../../stores/ChampionOneStore';
  
  
 export default {
+    setup() {
+    const championOneStore = useChampionOneStore()
+
+    return { championOneStore }
+  },
     data() {
         return {
             searchQuery1: '',
             selectedItemSlot: null,
             isVisible: false,
             itemsArray: [],
-            inventoryArray: [null, null, null, null, null, null],
-            hoverIndex: -1,
+            inventoryArray: [null, null, null, null, null, null]
         }
     },
     computed: {
@@ -58,8 +61,10 @@ export default {
             this.inventoryArray[this.selectedItemSlot] = item;
             this.isVisible = false;
             console.log("Added " + item[1] + " to inventory slot " + this.selectedItemSlot);
+
+            this.championOneStore.getItemData(item[0],this.selectedItemSlot);
+
             this.selectedItemSlot = null;
-            //this.store get item
         }
     }
 }

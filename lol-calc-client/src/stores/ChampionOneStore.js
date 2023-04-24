@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import ChampionsService from '../services/ChampionsService'
+import ItemsService from '../services/ItemsService'
 
 export const useChampionOneStore = defineStore('championOneStore', {
     state: () => ({
@@ -9,7 +10,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
         attackType: "",
         stats: {},
         abilities: {},
-        items: []
+        items: {}
 
     }),
 
@@ -51,6 +52,15 @@ export const useChampionOneStore = defineStore('championOneStore', {
             }
 
 
+        },
+
+        async getItemData(itemId, itemSlotNumber) {
+            const response = await ItemsService.getItemData(itemId);
+
+            console.log(response.data)
+
+            this.items[itemSlotNumber] = response.data
+            
         },
 
         setLevel(level) {

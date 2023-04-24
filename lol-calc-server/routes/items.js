@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 function filterItemNameAndInfoForPicker(callback) {
 
   const idToRemove = ["2403","3599","2052","3901","3902","3903"]
-  const itemTypesToRemove = d
+  const itemTypesToRemove = []
 
   fs.readFile('data/items.json', (error, data) => {
     if (error) throw error;
@@ -37,7 +37,7 @@ function filterItemNameAndInfoForPicker(callback) {
     const items = JSON.parse(data);
     //Remove items which are not buildable
     for (const item in items) {
-      console.log(item)
+      //console.log(item)
       if (
         (
           (items[item].rank[0] === "MINION") ||
