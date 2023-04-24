@@ -37,6 +37,14 @@ function filterChampionNamesAndIconsFromData(callback) {
           return obj;
         }, {});
 
+        //Remove useless stats from other game modes
+
+        for (const key in filtered.stats) {
+          if (key.startsWith("urf") || key.startsWith("aram")) {
+            delete filtered.stats[key];
+          }
+        }
+
         //Add extra stats to data before sending to frontend for easier handling in the frontend
         filtered.stats.abilityPower = {
           "flat": 0,
