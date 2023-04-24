@@ -3,46 +3,61 @@ const router = express.Router();
 const axios = require('axios');
 const fs = require('fs');
 
-function downloadItemsJSON(){
-  
-    axios.get('https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items.json')
-      .then(function (response) {
-        // handle success
-        fs.writeFile('data/items.json',JSON.stringify(response.data) , function(error) {
-            if (error) throw error;
-            console.log('Saved Items!');
-        });
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
+function downloadItemsJSON() {
+
+  axios.get('https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items.json')
+    .then(function (response) {
+      // handle success
+      fs.writeFile('data/items.json', JSON.stringify(response.data), function (error) {
+        if (error) throw error;
+        console.log('Saved Items!');
       });
-    }
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+}
 
 router.get('/', (req, res) => {
-    res.send("Generic Item");
+  res.send("Generic Item");
 });
 
 
-function filterItemNameAndInfoForPicker(callback){
+function filterItemNameAndInfoForPicker(callback) {
 
-  fs.readFile('data/items.json', (error,data) => {
+  const idToRemove = ["2403","3599","2052","3901","3902","3903"]
+
+  fs.readFile('data/items.json', (error, data) => {
     if (error) throw error;
 
     let itemsArray = []
 
     const items = JSON.parse(data);
-    for (const item in items){
-      itemsArray.push([items[item].id,items[item].name,items[item].icon,items[item].simpleDescription]);
+    //Remove items which are not buildable
+    for (const item in items) {
+      console.log(item)
+      if (
+        (
+          (items[item].rank[0] === "MINION") ||
+          (items[item].rank[0] === "TURRET") ||
+          (items[item].rank[0] === "TRINKET") ||
+          (idToRemove.includes(item))
+        )
+      )
+      {
+        continue
+      }
+      itemsArray.push([items[item].id, items[item].name, items[item].icon, items[item].simpleDescription]);
     }
-    console.log(itemsArray);
+    //console.log(itemsArray);
     callback(itemsArray);
   });
 
 }
 
 function filterSelectedItem(itemId, callback) {
-  fs.readFile('data/items.json', (error,data) => {
+  fs.readFile('data/items.json', (error, data) => {
     if (error) throw error;
 
     const items = JSON.parse(data);
@@ -62,18 +77,18 @@ function filterSelectedItem(itemId, callback) {
   });
 }
 
-router.get('/getAllItemNamesAndInfo', (req,res) => {
+router.get('/getAllItemNamesAndInfo', (req, res) => {
 
-  filterItemNameAndInfoForPicker((dataToSend)=>{
+  filterItemNameAndInfoForPicker((dataToSend) => {
     res.send({
-        items: dataToSend
+      items: dataToSend
     });
 
   });
 });
 
-router.get('/getItemData', (req,res) => {
-  filterSelectedItem(req.query.itemId,(dataToSend) => {
+router.get('/getItemData', (req, res) => {
+  filterSelectedItem(req.query.itemId, (dataToSend) => {
     res.json(dataToSend);
   })
 });
