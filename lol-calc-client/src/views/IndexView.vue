@@ -68,7 +68,7 @@ export default {
       <ChampionDisplay v-if="championOneStore.calculatedStats !== {}"></ChampionDisplay>
     </div>
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
-
+      {{  championOneStore.computedStats.attackSpeed }}
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
       
