@@ -27,6 +27,7 @@ router.get('/', (req, res) => {
 function filterItemNameAndInfoForPicker(callback) {
 
   const idToRemove = ["2403","3599","2052","3901","3902","3903"]
+  const itemTypesToRemove = d
 
   fs.readFile('data/items.json', (error, data) => {
     if (error) throw error;
