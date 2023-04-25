@@ -24,52 +24,52 @@ export default {
     <div class="grid grid-cols-2 bg-gray-900 text-white mt-5">
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/health_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.health}}</span>
+            <span>{{ championOneStore.computedStats.health}}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/mana_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span v-if="championOneStore.resource === 'MANA'" class="">{{ championOneStore.calculatedData.mana }}</span>
+            <span v-if="championOneStore.resource === 'MANA'" class="">{{ championOneStore.computedStats.mana }}</span>
             <span v-else>{{ championOneStore.resource}}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/attackDamage_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.attackDamage }}</span>
+            <span>{{ championOneStore.computedStats.attackDamage }}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/abilityPower_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.abilityPower }}</span>
+            <span>{{ championOneStore.computedStats.abilityPower }}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/armor_Icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.armor }}</span>
+            <span>{{ championOneStore.computedStats.armor }}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/magicResistance_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.magicResistance }}</span>
+            <span>{{ championOneStore.computedStats.magicResistance }}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/attackSpeed_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.attackSpeed }}</span>
+            <span>{{ championOneStore.computedStats.attackSpeed }}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/abilityHaste_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.abilityHaste }}</span>
+            <span>{{ championOneStore.computedStats.abilityHaste }}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/criticalStrikeChance_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.criticalStrikeChance ?? 0 + "%"}}</span>
+            <span>{{ championOneStore.computedStats.criticalStrikeChance ?? 0 + "%"}}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/movespeed_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.movespeed }}</span>
+            <span>{{ championOneStore.computedStats.movespeed }}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/healthRegen_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.healthRegen }}</span>
+            <span>{{ championOneStore.computedStats.healthRegen }}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/manaRegen_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.calculatedData.manaRegen }}</span>
+            <span>{{ championOneStore.computedStats.manaRegen }}</span>
         </div>
     </div>
 </template>

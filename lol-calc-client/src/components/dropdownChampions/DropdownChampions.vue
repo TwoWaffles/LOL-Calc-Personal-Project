@@ -48,7 +48,6 @@ export default {
       this.selectedChampion = champion;
       this.isVisible = false;
       console.log("this was just select:" + this.selectedChampion)
-      //Emits the champion key from the name,icon,key array
       this.championOneStore.getChampionData(this.selectedChampion[2])
     }
   },

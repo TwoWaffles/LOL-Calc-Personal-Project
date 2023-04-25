@@ -10,8 +10,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
         attackType: "",
         stats: {},
         abilities: {},
-        items: {},
-        calculatedData: {}
+        items: {slot0: null, slot1: null, slot2: null, slot3: null, slot4: null, slot5: null},
+        itemsAdded : false
 
     }),
 
@@ -26,37 +26,53 @@ export const useChampionOneStore = defineStore('championOneStore', {
 
                 switch (key) {
                     case "attackSpeed":
-                            let attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat
-                            let bonusAttackSpeed = value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
-                            //let extraItem = 40 + 3 + 35;
-                            var extraItem = 0;
-                            for( const [key, value] of Object.entries(this.items)){
-                                extraItem =+ value.stats[currentStat].flat
-                            }
-                            console.log("extra item is: " + extraItem)
-                            bonusAttackSpeed = bonusAttackSpeed + extraItem
-                            bonusAttackSpeed = bonusAttackSpeed * attackSpeedRatio;
-                            calculatedStat = value.flat * (1 + bonusAttackSpeed / 100 )
-                        
+                        let attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat
+                        let bonusAttackSpeed = value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
+                        //let extraItem = 40 + 3 + 35;
+                    //     if(this.itemsAdded === true){
+                    //     var extraItem = 0;
+                    //     for (const [key, value] of Object.entries(this.items)) {
+                    //         console.log("trying to add: " +value.stats[currentStat].flat )
+                    //         extraItem = + value.stats[currentStat].flat
+                    //     }
+                    //     console.log("extra item is: " + extraItem)
+                    //     bonusAttackSpeed = bonusAttackSpeed + extraItem
+                    // }
+
+                        bonusAttackSpeed = bonusAttackSpeed * attackSpeedRatio;
+                        calculatedStat = value.flat * (1 + bonusAttackSpeed / 100)
+
                         break;
 
                     default:
                         //Champion natural stats
                         calculatedStat = value.flat + value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
-                        console.log("getting here")
-                        //Adding item
-                        // for( const [key, value] of Object.entries(this.items)){
-                        //     if()
-                        //     console.log("item stat is thing: " + value.stats[currentStat].flat)
-                        //     calculatedStat =+ value.stats[currentStat].flat
+
+                        // if(this.itemsAdded === true){
+                        // calculatedStat += this.items.slot0.stats.attackDamage.flat
                         // }
-                        
+
+                        //TODO: CRIT AND ARMOUR PENETRATION IS AS PERCENT NOT FLAT
+
+                        if (this.itemsAdded === true) {
+                            for (const [slotKey, slotValue] of Object.entries(this.items)) {
+                                if (slotValue !== null && slotValue.stats[currentStat]) {
+                                    calculatedStat += slotValue.stats[currentStat].flat;
+                                }
+                            }
+                        }
+
 
                 }
                 newCalculatedStats[key] = calculatedStat
             }
             return newCalculatedStats
-        }
+        },
+
+        // computedItemStats() {
+
+        //     return this.items;
+        // }
     },
 
     actions: {
@@ -68,37 +84,37 @@ export const useChampionOneStore = defineStore('championOneStore', {
                 this[key] = value
             }
 
-            this.calculateStats()
-
 
         },
 
         async getItemData(itemId, itemSlotNumber) {
             const response = await ItemsService.getItemData(itemId);
 
-            console.log(response.data)
+            console.log("Adding this to the store: " + response.data.name)
 
-            this.items[itemSlotNumber] = response.data
+            this.items["slot"+itemSlotNumber] = response.data
 
-            this.calculateStats()
-            
+
+            //TODO: Perhaps add check if they remove all items
+            this.itemsAdded = true;
+
+
         },
 
         setLevel(level) {
             this.level = level;
-            this.calculateStats()
         },
 
-        calculateStats(){
-            console.log("calculating")
+        // calculateStats(){
+        //     console.log("calculating")
 
-            // TODO: add cases for attack speed etc. also items
+        //     // TODO: add cases for attack speed etc. also items
 
-            for(const [key, value] of Object.entries(this.stats)){
-                const calculatedStat = value.flat + value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
-                this.calculatedData[key] = calculatedStat
-            }
-        }
+        //     for(const [key, value] of Object.entries(this.stats)){
+        //         const calculatedStat = value.flat + value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
+        //         this.calculatedData[key] = calculatedStat
+        //     }
+        // }
 
 
     }
