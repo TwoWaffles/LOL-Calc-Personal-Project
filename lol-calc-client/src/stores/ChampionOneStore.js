@@ -10,8 +10,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
         attackType: "",
         stats: {},
         abilities: {},
-        items: {slot0: null, slot1: null, slot2: null, slot3: null, slot4: null, slot5: null},
-        itemsAdded : false
+        items: { slot0: null, slot1: null, slot2: null, slot3: null, slot4: null, slot5: null },
+        itemsAdded: false
 
     }),
 
@@ -28,16 +28,17 @@ export const useChampionOneStore = defineStore('championOneStore', {
                     case "attackSpeed":
                         let attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat
                         let bonusAttackSpeed = value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
-                        //let extraItem = 40 + 3 + 35;
-                    //     if(this.itemsAdded === true){
-                    //     var extraItem = 0;
-                    //     for (const [key, value] of Object.entries(this.items)) {
-                    //         console.log("trying to add: " +value.stats[currentStat].flat )
-                    //         extraItem = + value.stats[currentStat].flat
-                    //     }
-                    //     console.log("extra item is: " + extraItem)
-                    //     bonusAttackSpeed = bonusAttackSpeed + extraItem
-                    // }
+                        let extraItem = 40 + 3 + 35;
+                        if (this.itemsAdded === true) {
+                            let extraItem = 0;
+                            for (const [slotKey, slotValue] of Object.entries(this.items)) {
+                                if (slotValue !== null && slotValue.stats[currentStat]) {
+                                    extraItem += slotValue.stats[currentStat].flat;
+                                }
+                            }
+                            console.log("extra item is: " + extraItem)
+                            bonusAttackSpeed = bonusAttackSpeed + extraItem
+                        }
 
                         bonusAttackSpeed = bonusAttackSpeed * attackSpeedRatio;
                         calculatedStat = value.flat * (1 + bonusAttackSpeed / 100)
@@ -53,11 +54,20 @@ export const useChampionOneStore = defineStore('championOneStore', {
                         // }
 
                         //TODO: CRIT AND ARMOUR PENETRATION IS AS PERCENT NOT FLAT
+                        const PERCENT_STATS = ["criticalStrikeChance"]
 
                         if (this.itemsAdded === true) {
                             for (const [slotKey, slotValue] of Object.entries(this.items)) {
+                                //Check if itemSlot is used and if stat exists
                                 if (slotValue !== null && slotValue.stats[currentStat]) {
-                                    calculatedStat += slotValue.stats[currentStat].flat;
+                                    //Check if it is stored as flat or percent
+                                    if (PERCENT_STATS.includes(currentStat)) {
+                                        calculatedStat += slotValue.stats[currentStat].percent;
+                                    } else {
+                                        calculatedStat += slotValue.stats[currentStat].flat;
+                                    }
+
+
                                 }
                             }
                         }
@@ -92,8 +102,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
 
             console.log("Adding this to the store: " + response.data.name)
 
-            this.items["slot"+itemSlotNumber] = response.data
-
+            this.items["slot" + itemSlotNumber] = response.data
 
             //TODO: Perhaps add check if they remove all items
             this.itemsAdded = true;

@@ -57,7 +57,7 @@ export default {
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/criticalStrikeChance_icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.computedStats.criticalStrikeChance ?? 0 + "%"}}</span>
+            <span>{{ (championOneStore.computedStats.criticalStrikeChance ?? 0) + "%"}}</span>
         </div>
         <div class="hover:bg-gray-700">
             <img src="/src/assets/statIcons/movespeed_icon.png" class="h-5 w-5 inline-block mr-2">
