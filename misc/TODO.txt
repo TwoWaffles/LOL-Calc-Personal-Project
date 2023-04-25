@@ -1,13 +1,6 @@
-remove useless items with rank minion and turret etc.
-
-figure out tooltips, use videos or something
-
 
 Finish of the stats table:
-    crit being %
-    displaying lethality and armour pen seperatley (magic pen, lifesteal) armour pen is stored as %
-
-    remove the useless aram data etc.
+    displaying lethality and armour pen seperatley (magic pen, lifesteal) armour pen and crit and stuff check comment is stored as %
 
     also how to neatly allow me to easily add items to these calcuations and runes (store i guess)
         - add items to the store
@@ -19,11 +12,13 @@ Finish of the stats table:
 start thinking about rune/masteries
 
 
-
-
 Keep in mind:
 
 - simpleItemDesc can be null
+
+- some items are attack_damage and others attackDamage
+
+- check your github page for reply to marik data shit
 
 Notes:
 
