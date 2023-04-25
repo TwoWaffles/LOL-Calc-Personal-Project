@@ -13,6 +13,7 @@ export default {
             STATS_TO_DISPLAY: STATS_TO_DISPLAY
         }
     },
+    
 
     methods: {}
 

@@ -4,7 +4,29 @@ Server -> ChampionDropdown
 
 Server -> ItemPicker
 
-
+const combinedStats = {
+  abilityPower: 0,
+  armor: 0,
+  armorPenetration: 0,
+  attackDamage: 0,
+  attackSpeed: 0,
+  cooldownReduction: 0,
+  criticalStrikeChance: 0,
+  goldPer_10: 0,
+  healAndShieldPower: 0,
+  health: 0,
+  healthRegen: 0,
+  lethality: 0,
+  lifesteal: 0,
+  magicPenetration: 0,
+  magicResistance: 0,
+  mana: 0,
+  manaRegen: 0,
+  movespeed: 0,
+  abilityHaste: 0,
+  omnivamp: 0,
+  tenacity: 0,
+};
 
 
 Item.json stats:
