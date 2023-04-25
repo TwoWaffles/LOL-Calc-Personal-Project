@@ -65,7 +65,57 @@ function filterChampionNamesAndIconsFromData(callback) {
         "percent": 0,
         "perLevel": 0,
         "percentPerLevel": 0
-      }
+      };
+
+      filtered.stats.armorPenetration = {
+        "flat": 0,
+        "percent": 0,
+        "perLevel": 0,
+        "percentPerLevel": 0
+      };
+
+      filtered.stats.magicPenetration = {
+        "flat": 0,
+        "percent": 0,
+        "perLevel": 0,
+        "percentPerLevel": 0
+      };
+
+      filtered.stats.healAndShieldPower = {
+        "flat": 0,
+        "percent": 0,
+        "perLevel": 0,
+        "percentPerLevel": 0
+      };
+
+      filtered.stats.omnivamp = {
+        "flat": 0,
+        "percent": 0,
+        "perLevel": 0,
+        "percentPerLevel": 0
+      };
+
+      filtered.stats.tenacity = {
+        "flat": 0,
+        "percent": 0,
+        "perLevel": 0,
+        "percentPerLevel": 0
+      };
+
+      filtered.stats.lethality = {
+        "flat": 0,
+        "percent": 0,
+        "perLevel": 0,
+        "percentPerLevel": 0
+      };
+
+      filtered.stats.lifesteal = {
+        "flat": 0,
+        "percent": 0,
+        "perLevel": 0,
+        "percentPerLevel": 0
+      };
+  
   
       //console.log(filtered);
       callback(filtered)

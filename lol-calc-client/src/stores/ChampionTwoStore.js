@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import ChampionsService from '../services/ChampionsService'
 import ItemsService from '../services/ItemsService'
 
-export const useChampionOneStore = defineStore('championOneStore', {
+export const useChampionTwoStore = defineStore('championTwoStore', {
     state: () => ({
         level: 1,
         key: "",

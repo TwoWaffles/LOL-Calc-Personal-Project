@@ -29,7 +29,7 @@ function filterItemNameAndInfoForPicker(callback) {
   const idToRemove = ["2403","3599","2052","3901","3902","3903"]
   const itemTypesToRemove = []
 
-  fs.readFile('data/items.json', (error, data) => {
+  fs.readFile('data/itemsFormatted.json', (error, data) => {
     if (error) throw error;
 
     let itemsArray = []
@@ -58,7 +58,7 @@ function filterItemNameAndInfoForPicker(callback) {
 }
 
 function filterSelectedItem(itemId, callback) {
-  fs.readFile('data/items.json', (error, data) => {
+  fs.readFile('data/itemsFormatted.json', (error, data) => {
     if (error) throw error;
 
     const items = JSON.parse(data);
@@ -78,6 +78,45 @@ function filterSelectedItem(itemId, callback) {
   });
 }
 
+//Need to make everything camel case
+function fixItemsFileFormat() {
+  fs.readFile('data/items.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  
+    const lines = data.split('\n');
+  
+    function toCamelCase(s) {
+      return s.replace(/_([a-zA-Z])/g, (match, p1) => p1.toUpperCase());
+    }
+  
+    let formattedData = '';
+  
+    for (const line of lines) {
+      const parts = line.trim().split('"');
+      const key = parts[1];
+  
+      if (key && !key.startsWith('http') && !key.startsWith('goldPer') && key.includes('_')) {
+        const camelCase = toCamelCase(parts[1]);
+        parts[1] = camelCase;
+        const newLine = parts.join('"');
+        formattedData += newLine + '\n';
+      } else {
+        formattedData += line + '\n';
+      }
+    }
+  
+    fs.writeFile('data/itemsFormatted.json', formattedData, 'utf8', (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
+  });
+}
+
 router.get('/getAllItemNamesAndInfo', (req, res) => {
 
   filterItemNameAndInfoForPicker((dataToSend) => {
@@ -93,6 +132,7 @@ router.get('/getItemData', (req, res) => {
     res.json(dataToSend);
   })
 });
+
 
 
 module.exports = router;
