@@ -4,9 +4,10 @@ import ChampionDisplay from '../components/ChampionDisplay.vue';
 import DropdownLevel from '../components/dropdownChampions/DropdownLevel.vue';
 import Test from '../components/Test.vue';
 import ItemInventory from '../components/itemPicker/ItemInventory.vue';
+import DamageDisplay from '../components/DamageDisplay.vue'
+import TargetDummyInput from '../components/TargetDummyInput.vue';
 
 import { useChampionOneStore } from '../stores/ChampionOneStore';
-import TargetDummyInput from '../components/TargetDummyInput.vue';
 
 export default {
   setup() {
@@ -26,7 +27,8 @@ export default {
     ChampionDisplay,
     DropdownLevel,
     ItemInventory,
-    TargetDummyInput
+    TargetDummyInput,
+    DamageDisplay
   },
   methods: {}
 }
@@ -53,7 +55,7 @@ export default {
 
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
-
+      <DamageDisplay></DamageDisplay>
     </div>
   </div>
 </template>
