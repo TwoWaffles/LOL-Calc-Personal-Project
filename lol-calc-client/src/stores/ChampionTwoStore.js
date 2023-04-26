@@ -11,7 +11,10 @@ export const useChampionTwoStore = defineStore('championTwoStore', {
         stats: {},
         abilities: {},
         items: { slot0: null, slot1: null, slot2: null, slot3: null, slot4: null, slot5: null },
-        itemsAdded: false
+        itemsAdded: false,
+        targetHealth: 0,
+        targetArmor: 0,
+        targetMagicResistance: 0
 
     }),
 
@@ -109,6 +112,18 @@ export const useChampionTwoStore = defineStore('championTwoStore', {
         setLevel(level) {
             this.level = level;
         },
+
+        setTargetHealth(health){
+            this.targetHealth = health;
+        },
+
+        setTargetArmor(armor){
+            this.targetArmor = armor;
+        },
+
+        setTargetMagicResistance(magicResistance){
+            this.targetMagicResistance = magicResistance;
+        }
 
         // calculateStats(){
         //     console.log("calculating")

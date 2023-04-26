@@ -6,6 +6,7 @@ import Test from '../components/Test.vue';
 import ItemInventory from '../components/itemPicker/ItemInventory.vue';
 
 import { useChampionOneStore } from '../stores/ChampionOneStore';
+import TargetDummyInput from '../components/TargetDummyInput.vue';
 
 export default {
   setup() {
@@ -16,7 +17,7 @@ export default {
 
   data() {
     return {
-      
+
     }
   },
   components: {
@@ -24,8 +25,9 @@ export default {
     DropdownChampions,
     ChampionDisplay,
     DropdownLevel,
-    ItemInventory
-},
+    ItemInventory,
+    TargetDummyInput
+  },
   methods: {}
 }
 </script>
@@ -35,16 +37,20 @@ export default {
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
       <div class="flex flex-row">
         <DropdownChampions class="w-2/3" :isChampionOne="true"></DropdownChampions>
-        <DropdownLevel class="w-1/3"></DropdownLevel>
+        <DropdownLevel class="w-1/3" :isChampionOne="true"></DropdownLevel>
       </div>
       <ItemInventory></ItemInventory>
       <ChampionDisplay></ChampionDisplay>
     </div>
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
-      <DropdownChampions class="w-2/3" :isChampionOne="false"></DropdownChampions>
+      <div class="flex flex-row">
+        <DropdownChampions class="w-2/3" :isChampionOne="false"></DropdownChampions>
+        <DropdownLevel class="w-1/3" :isChampionOne="false"></DropdownLevel>
+      </div>
+      <TargetDummyInput></TargetDummyInput>
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
-      
+
     </div>
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
 
