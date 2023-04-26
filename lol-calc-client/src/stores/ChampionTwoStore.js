@@ -12,7 +12,7 @@ export const useChampionTwoStore = defineStore('championTwoStore', {
         abilities: {},
         items: { slot0: null, slot1: null, slot2: null, slot3: null, slot4: null, slot5: null },
         itemsAdded: false,
-        targetHealth: 0,
+        targetHealth: 100,
         targetArmor: 0,
         targetMagicResistance: 0
 

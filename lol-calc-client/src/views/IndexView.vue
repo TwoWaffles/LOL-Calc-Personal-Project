@@ -6,6 +6,7 @@ import Test from '../components/Test.vue';
 import ItemInventory from '../components/itemPicker/ItemInventory.vue';
 import DamageDisplay from '../components/DamageDisplay.vue'
 import TargetDummyInput from '../components/TargetDummyInput.vue';
+import DamageSettings from '../components/DamageSettings.vue'
 
 import { useChampionOneStore } from '../stores/ChampionOneStore';
 
@@ -28,7 +29,8 @@ export default {
     DropdownLevel,
     ItemInventory,
     TargetDummyInput,
-    DamageDisplay
+    DamageDisplay,
+    DamageSettings
   },
   methods: {}
 }
@@ -37,6 +39,7 @@ export default {
 <template>
   <div class="flex flex-row justify-between px-12 py-8 gap-4 h-screen">
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
+      <!-- Champion One Panel -->
       <div class="flex flex-row">
         <DropdownChampions class="w-2/3" :isChampionOne="true"></DropdownChampions>
         <DropdownLevel class="w-1/3" :isChampionOne="true"></DropdownLevel>
@@ -44,6 +47,7 @@ export default {
       <ItemInventory></ItemInventory>
       <ChampionDisplay></ChampionDisplay>
     </div>
+    <!-- Champion Two Panel -->
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
       <div class="flex flex-row">
         <DropdownChampions class="w-2/3" :isChampionOne="false"></DropdownChampions>
@@ -51,9 +55,11 @@ export default {
       </div>
       <TargetDummyInput></TargetDummyInput>
     </div>
+    <!-- Settings Panel -->
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
-
+      <DamageSettings></DamageSettings>
     </div>
+    <!-- Damage Display -->
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
       <DamageDisplay></DamageDisplay>
     </div>

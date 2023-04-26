@@ -13,6 +13,13 @@ export default {
             STATS_TO_DISPLAY: STATS_TO_DISPLAY
         }
     },
+
+    computed: {
+        percentReductionArmor() {
+            return Math.round(this.championOneStore.computedStats.armor / (this.championOneStore.computedStats.armor + 100) * 100)
+            // return 25/(25 + 100) * 100
+        }
+    },
     
 
     methods: {}
@@ -42,7 +49,7 @@ export default {
         </div>
         <div class="">
             <img src="/src/assets/statIcons/armor_Icon.png" class="h-5 w-5 inline-block mr-2">
-            <span>{{ championOneStore.computedStats.armor }}</span>
+            <span>{{ championOneStore.computedStats.armor + "|" + percentReductionArmor + "%"}}</span>
         </div>
         <div class="">
             <img src="/src/assets/statIcons/magicResistance_icon.png" class="h-5 w-5 inline-block mr-2">
