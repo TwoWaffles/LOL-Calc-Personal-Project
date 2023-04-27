@@ -46,7 +46,7 @@ export default {
         <DropdownLevel class="w-1/3" :isChampionOne="true"></DropdownLevel>
       </div>
       <ItemInventory></ItemInventory>
-      <ChampionDisplay v-if="!(championOneStore.key === '')"></ChampionDisplay>
+      <ChampionDisplay :isChampionOne="true" v-if="!(championOneStore.key === '')"></ChampionDisplay>
     </div>
     <!-- Champion Two Panel -->
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
@@ -59,8 +59,7 @@ export default {
     <!-- Settings Panel -->
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
       <DamageSettings></DamageSettings>
-      <RunePicker v-model="selectedOption"
-      :options="options"></RunePicker>
+      <RunePicker></RunePicker>
     </div>
     <!-- Damage Display -->
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
