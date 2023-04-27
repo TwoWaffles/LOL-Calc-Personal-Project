@@ -11,7 +11,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
         stats: {},
         abilities: {},
         items: { slot0: null, slot1: null, slot2: null, slot3: null, slot4: null, slot5: null },
-        runes: {slot0: null, slot1: null, slot2: null},
+        runes: { slot0: null, slot1: null, slot2: null },
         itemsAdded: false
 
     }),
@@ -51,7 +51,13 @@ export const useChampionOneStore = defineStore('championOneStore', {
                         calculatedStat = value.flat + value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
 
                         //TODO: CRIT AND ARMOUR PENETRATION IS AS PERCENT NOT FLAT
-                        const PERCENT_STATS = ["criticalStrikeChance","armorPenetration","magicPenetration","lifesteal","omnivamp"]
+                        const PERCENT_STATS = [
+                            "criticalStrikeChance",
+                            "armorPenetration",
+                            "magicPenetration",
+                            "lifesteal",
+                            "omnivamp"
+                        ]
 
                         if (this.itemsAdded === true) {
                             for (const [slotKey, slotValue] of Object.entries(this.items)) {
@@ -68,6 +74,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
                                 }
                             }
                         }
+
+                    //if()
 
 
                 }
@@ -111,7 +119,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
             this.level = level;
         },
 
-        setRune(slot,value) {
+        setRune(slot, value) {
             this.runes[slot] = value
         }
 
