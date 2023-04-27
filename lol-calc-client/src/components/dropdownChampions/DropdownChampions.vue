@@ -64,11 +64,11 @@ export default {
 
 }
 </script>
-
+ 
 <template>
   <section class="relative">
     <div @click="isVisible = !isVisible"
-      class="border border-blue-800 bg-blue-300 rounded-md p-2 flex justify-between items-center cursor-pointer">
+      class="border border-gray-900 bg-gray-500 rounded-md p-2 flex justify-between items-center cursor-pointer h-12">
       <!-- <span class="text-black-800">{{ selectedChampion ? selectedChampion[0] && selectedChampion[1] : 'Select a Champion' }}</span> -->
       <span v-if="selectedChampion" class="text-black-800">
         <div class="flex flex-row items-center">
@@ -79,7 +79,7 @@ export default {
       <span v-else>
         Select A Champion
       </span>
-      <svg :class="isVisible ? 'ddArrowDown' : 'ddArrowUp'" class="h-4 w-4 text-gray-500" fill="none"
+      <svg :class="isVisible ? 'ddArrowDown' : 'ddArrowUp'" class="h-4 w-4 text-black" fill="none"
         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
         <path d="M19 9l-7 7-7-7"></path>
       </svg>
@@ -107,7 +107,7 @@ export default {
 
   </section>
 </template>
-
+ 
 <style scoped>
 .ddArrowDown {
   transform: rotate(180deg);
@@ -117,4 +117,5 @@ export default {
 .ddArrowUp {
   transform: rotate(0deg);
   transition: all .5s ease;
-}</style>
+}
+</style>
