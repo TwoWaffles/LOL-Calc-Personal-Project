@@ -11,6 +11,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
         stats: {},
         abilities: {},
         items: { slot0: null, slot1: null, slot2: null, slot3: null, slot4: null, slot5: null },
+        runes: {slot0: null, slot1: null, slot2: null},
         itemsAdded: false
 
     }),
@@ -109,6 +110,10 @@ export const useChampionOneStore = defineStore('championOneStore', {
         setLevel(level) {
             this.level = level;
         },
+
+        setRune(slot,value) {
+            this.runes[slot] = value
+        }
 
         // calculateStats(){
         //     console.log("calculating")

@@ -9,6 +9,7 @@ import TargetDummyInput from '../components/TargetDummyInput.vue';
 import DamageSettings from '../components/DamageSettings.vue'
 
 import { useChampionOneStore } from '../stores/ChampionOneStore';
+import RunePicker from '../components/RunePicker.vue';
 
 export default {
   setup() {
@@ -19,7 +20,6 @@ export default {
 
   data() {
     return {
-
     }
   },
   components: {
@@ -30,8 +30,9 @@ export default {
     ItemInventory,
     TargetDummyInput,
     DamageDisplay,
-    DamageSettings
-  },
+    DamageSettings,
+    RunePicker
+},
   methods: {}
 }
 </script>
@@ -58,6 +59,8 @@ export default {
     <!-- Settings Panel -->
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
       <DamageSettings></DamageSettings>
+      <RunePicker v-model="selectedOption"
+      :options="options"></RunePicker>
     </div>
     <!-- Damage Display -->
     <div class="px-6 py-4 flex-col bg-blue-300 w-full rounded-2xl">
