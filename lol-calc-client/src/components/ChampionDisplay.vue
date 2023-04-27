@@ -1,14 +1,14 @@
 <script>
 import { useChampionOneStore } from '../stores/ChampionOneStore';
-import { useChampionTwoStore } from '../stores/ChampionTwoStore';
+import { useChampionTargetStore } from '../stores/ChampionTargetStore';
  
 const STATS_TO_DISPLAY = ["attackDamage", "abilityPower", "armor", "magicResistance", "attackSpeed", "abilityHaste", "criticalStrikeChance", "movespeed", "healthRegen", "manaRegen"];
 export default {
   setup() {
     const championOneStore = useChampionOneStore();
-    const championTwoStore = useChampionTwoStore();
+    const championTargetStore = useChampionTargetStore();
  
-    return { championOneStore, championTwoStore };
+    return { championOneStore, championTargetStore };
   },
   data() {
     return {
@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     getStore() {
-      return this.isChampionOne ? this.championOneStore : this.championTwoStore;
+      return this.isChampionOne ? this.championOneStore : this.championTargetStore;
     },
     percentReductionArmor() {
       return Math.round(

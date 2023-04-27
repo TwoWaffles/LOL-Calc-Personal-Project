@@ -7,22 +7,22 @@ import ItemInventory from '../components/itemPicker/ItemInventory.vue';
 import DamageDisplay from '../components/DamageDisplay.vue'
 import TargetDummyInput from '../components/TargetDummyInput.vue';
 import DamageSettings from '../components/DamageSettings.vue'
- 
+
 import { useChampionOneStore } from '../stores/ChampionOneStore';
 import { useDamageSettingsStore } from '../stores/DamageSettingsStore';
 import RunePicker from '../components/RunePicker.vue';
- 
+
 export default {
   setup() {
     const championOneStore = useChampionOneStore()
     const DamageSettingsStore = useDamageSettingsStore()
- 
+
     return { championOneStore, DamageSettingsStore }
   },
- 
+
   data() {
     return {
- 
+
     }
   },
   components: {
@@ -34,7 +34,7 @@ export default {
     DamageDisplay,
     DamageSettings,
     RunePicker
-},
+  },
   methods: {}
 }
 </script>
@@ -52,14 +52,14 @@ export default {
         <ItemInventory></ItemInventory>
         <ChampionDisplay v-if="!(championOneStore.key === '')" :isChampionOne="true"></ChampionDisplay>
       </div>
- 
+
       <!-- Second box -->
       <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
         <!-- TODO -->
         <!-- if below is true hiden ChampionDisplay and pass prop into damageDisplay to calc from dummy -->
         <!-- else use champion stats, also reset championTwo on toggle off -->
         <DamageSettings></DamageSettings>
- 
+
         <!-- TODO -->
         <!-- change below v-if to store value for toggle target dummy-->
         <div v-if="!DamageSettingsStore.isTargetDummy">
@@ -67,28 +67,28 @@ export default {
             <DropdownChampions class="w-2/3" :isChampionOne="false"></DropdownChampions>
             <DropdownLevel class="w-1/3" :isChampionOne="false"></DropdownLevel>
           </div>
- 
+
           <ChampionDisplay v-if="!(championOneStore.key === '')" :isChampionOne="false"></ChampionDisplay>
         </div>
         <!-- TODO -->
         <!-- change below v-if to store value for toggle target dummy-->
         <TargetDummyInput v-if="DamageSettingsStore.isTargetDummy"></TargetDummyInput>
- 
+
       </div>
     </div>
- 
+
     <!-- Second column -->
     <div class="flex flex-col gap-4 w-1/2">
       <!-- Third box -->
       <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
         <DamageDisplay></DamageDisplay>
       </div>
- 
+
       <!-- Fourth box -->
       <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
-      <!-- TODO -->
-      <!-- ABILITIES AND RUNES? -->
-      <RunePicker :isChampionOne="true" />
+        <!-- TODO -->
+        <!-- ABILITIES AND RUNES? -->
+        <RunePicker :isChampionOne="true" />
       </div>
     </div>
   </div>

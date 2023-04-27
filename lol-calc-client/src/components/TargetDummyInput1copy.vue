@@ -1,9 +1,9 @@
 <script>
-import { useChampionTwoStore } from '../stores/ChampionTwoStore';
+import { useChampionTargetStore } from '../stores/ChampionTargetStore';
 export default {
     setup() {
-        const championTwoStore = useChampionTwoStore()
-        return { championTwoStore }
+        const championTargetStore = useChampionTargetStore()
+        return { championTargetStore }
     },
 
     data() {
@@ -17,7 +17,7 @@ export default {
         //maybe put all 3 set values together
         handleSubmit() {
             if(this.health > 0){
-                this.championTwoStore.setTargetHealth(this.health)
+                this.championTargetStore.setTargetHealth(this.health)
             }
         }
     },

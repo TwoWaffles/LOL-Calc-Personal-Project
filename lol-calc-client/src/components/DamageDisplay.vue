@@ -1,12 +1,12 @@
 <script>
 import { useChampionOneStore } from '../stores/ChampionOneStore'
-import { useChampionTwoStore } from '../stores/ChampionTwoStore'
+import { useChampionTargetStore } from '../stores/ChampionTargetStore'
 export default {
     setup() {
         const championOneStore = useChampionOneStore();
-        const championTwoStore = useChampionTwoStore();
+        const championTargetStore = useChampionTargetStore();
 
-        return { championOneStore, championTwoStore }
+        return { championOneStore, championTargetStore }
     },
     data() {
         return {}
@@ -21,7 +21,7 @@ export default {
         },
 
         postMitigationDamage() {
-            var targetArmor = this.championTwoStore.targetArmor;
+            var targetArmor = this.championTargetStore.targetArmor;
             var attackerAttackDamage = this.championOneStore.computedStats.attackDamage;
 
             var mitigatedDamage = attackerAttackDamage * (100 / (100 + targetArmor))

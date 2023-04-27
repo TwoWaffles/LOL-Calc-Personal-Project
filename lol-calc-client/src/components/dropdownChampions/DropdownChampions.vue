@@ -1,12 +1,12 @@
 <script>
 import ChampionsService from '../../services/ChampionsService';
 import { useChampionOneStore } from '../../stores/ChampionOneStore';
-import { useChampionTwoStore } from '../../stores/ChampionTwoStore';
+import { useChampionTargetStore } from '../../stores/ChampionTargetStore';
 export default {
   setup() {
     const championOneStore = useChampionOneStore()
-    const championTwoStore = useChampionTwoStore()
-    return { championOneStore, championTwoStore }
+    const championTargetStore = useChampionTargetStore()
+    return { championOneStore, championTargetStore }
   },
 
   data() {
@@ -53,7 +53,7 @@ export default {
       if (this.isChampionOne) {
         this.championOneStore.getChampionData(this.selectedChampion[2])
       } else {
-        this.championTwoStore.getChampionData(this.selectedChampion[2])
+        this.championTargetStore.getChampionData(this.selectedChampion[2])
       }
     }
   },

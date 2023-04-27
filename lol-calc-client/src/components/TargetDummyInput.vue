@@ -1,34 +1,34 @@
 <script>
-import { useChampionTwoStore } from '../stores/ChampionTwoStore';
+import { useChampionTargetStore } from '../stores/ChampionTargetStore';
 
 export default {
 
     setup() {
-        const championTwoStore = useChampionTwoStore()
-        return { championTwoStore }
+        const championTargetStore = useChampionTargetStore()
+        return { championTargetStore }
     },
     data() {
 
         return {
-            health: this.championTwoStore.targetHealth,
-            armor: this.championTwoStore.targetArmor,
-            magicResistance: this.championTwoStore.targetMagicResistance,
+            health: this.championTargetStore.targetHealth,
+            armor: this.championTargetStore.targetArmor,
+            magicResistance: this.championTargetStore.targetMagicResistance,
         };
     },
     methods: {
         updateHealth() {
             if (this.health > 0) {
-                this.championTwoStore.setTargetHealth(this.health);
+                this.championTargetStore.setTargetHealth(this.health);
             }
         },
         updateArmor() {
             if (this.armor > 0) {
-                this.championTwoStore.setTargetArmor(this.armor);
+                this.championTargetStore.setTargetArmor(this.armor);
             }
         },
         updateMagicResistance() {
             if (this.magicResistance > 0) {
-                this.championTwoStore.setTargetMagicResistance(this.magicResistance);
+                this.championTargetStore.setTargetMagicResistance(this.magicResistance);
             }
         },
     },

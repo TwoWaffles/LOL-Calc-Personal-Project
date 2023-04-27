@@ -1,14 +1,14 @@
 <script>
 import { useChampionOneStore } from '../../stores/ChampionOneStore'
-import { useChampionTwoStore } from '../../stores/ChampionTwoStore'
+import { useChampionTargetStore } from '../../stores/ChampionTargetStore'
  
 const LEVEL_CAP = 18
 export default {
   setup() {
     const championOneStore = useChampionOneStore()
-    const championTwoStore = useChampionTwoStore()
+    const championTargetStore = useChampionTargetStore()
  
-    return { championOneStore, championTwoStore }
+    return { championOneStore, championTargetStore }
   },
  
   data() {
@@ -32,7 +32,7 @@ export default {
       if (this.isChampionOne) {
         this.championOneStore.setLevel(this.selectedLevel);
       } else {
-        this.championTwoStore.setLevel(this.selectedLevel);
+        this.championTargetStore.setLevel(this.selectedLevel);
       }
     }
   },
