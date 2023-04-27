@@ -63,7 +63,5 @@ export default{
         <label class="cursor-pointer max-w-fit" for="radio9">
         <img src="/src/assets/runeIcons/magicResistanceRune_icon.png">
         </label>
-
-        <div>Test</div>
     </div>
 </template>
