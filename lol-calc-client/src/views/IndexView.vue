@@ -50,7 +50,7 @@ export default {
           <DropdownLevel class="w-1/3" :isChampionOne="true"></DropdownLevel>
         </div>
         <ItemInventory></ItemInventory>
-        <ChampionDisplay v-if="!(championOneStore.key === '')" :championOne="true"></ChampionDisplay>
+        <ChampionDisplay v-if="!(championOneStore.key === '')" :isChampionOne="true"></ChampionDisplay>
       </div>
  
       <!-- Second box -->
@@ -68,7 +68,7 @@ export default {
             <DropdownLevel class="w-1/3" :isChampionOne="false"></DropdownLevel>
           </div>
  
-          <ChampionDisplay v-if="!(championOneStore.key === '')" :championOne="false"></ChampionDisplay>
+          <ChampionDisplay v-if="!(championOneStore.key === '')" :isChampionOne="false"></ChampionDisplay>
         </div>
         <!-- TODO -->
         <!-- change below v-if to store value for toggle target dummy-->
@@ -88,7 +88,7 @@ export default {
       <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
       <!-- TODO -->
       <!-- ABILITIES AND RUNES? -->
-      <RunePicker />
+      <RunePicker :isChampionOne="true" />
       </div>
     </div>
   </div>
