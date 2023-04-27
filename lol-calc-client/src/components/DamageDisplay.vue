@@ -26,7 +26,7 @@ export default {
 
             var mitigatedDamage = attackerAttackDamage * (100 / (100 + targetArmor))
 
-            return mitigatedDamage
+            return Math.round(mitigatedDamage)
         }
 
     },
@@ -39,10 +39,14 @@ export default {
         <div class="flex flex-col">
             <h1 class="font-bold">Pre-Mitigation</h1>
             <div>Physical Damage: {{ preMitigationDamage }}</div>
+            <div>Magical Damage: 0</div>
+            <div>Total Damage {{ preMitigationDamage }}</div>
         </div>
         <div class="flex flex-col">
             <h1 class="font-bold">Post-Mitigation</h1>
             <div>Physical Damage: {{ postMitigationDamage }}</div>
+            <div>Magical Damage: 0</div>
+            <div>Total Damage: {{ postMitigationDamage }}</div>
         </div>
     </div>
 </template>

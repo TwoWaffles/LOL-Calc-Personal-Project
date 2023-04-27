@@ -40,15 +40,15 @@ export default {
         <h1>Character Stats</h1>
         <div>
             <label>Health:</label>
-            <input type="number" v-model.number="health" @input="updateHealth" />
+            <input type="number" v-model.number="health" @input="updateHealth" class="block rounded-md border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"/>
         </div>
         <div>
             <label>Armor:</label>
-            <input type="number" v-model.number="armor" @input="updateArmor" />
+            <input type="number" v-model.number="armor" @input="updateArmor" class="block rounded-md border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" />
         </div>
         <div>
             <label>Magic Resistance:</label>
-            <input type="number" v-model.number="magicResistance" @input="updateMagicResistance" />
+            <input type="number" v-model.number="magicResistance" @input="updateMagicResistance" class="block rounded-md border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" />
         </div>
     </div>
 </template>

@@ -45,7 +45,7 @@ export default {
         <DropdownLevel class="w-1/3" :isChampionOne="true"></DropdownLevel>
       </div>
       <ItemInventory></ItemInventory>
-      <ChampionDisplay></ChampionDisplay>
+      <ChampionDisplay v-if="!(championOneStore.key === '')"></ChampionDisplay>
     </div>
     <!-- Champion Two Panel -->
     <div class="px-6 py-4 flex-col bg-blue-600 w-full rounded-2xl">
