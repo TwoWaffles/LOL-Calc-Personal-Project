@@ -7,10 +7,10 @@ import { useChampionOneStore } from '../../stores/ChampionOneStore';
  
 export default {
     setup() {
-    const championOneStore = useChampionOneStore()
-
-    return { championOneStore }
-  },
+        const championOneStore = useChampionOneStore()
+ 
+        return { championOneStore }
+    },
     data() {
         return {
             searchQuery1: '',
@@ -61,9 +61,9 @@ export default {
             this.inventoryArray[this.selectedItemSlot] = item;
             this.isVisible = false;
             console.log("Added " + item[1] + " to inventory slot " + this.selectedItemSlot);
-
-            this.championOneStore.getItemData(item[0],this.selectedItemSlot);
-
+ 
+            this.championOneStore.getItemData(item[0], this.selectedItemSlot);
+ 
             this.selectedItemSlot = null;
         }
     }
@@ -72,7 +72,7 @@ export default {
  
 <template>
     <div>
-        <div class="flex flex-row justify-between mt-2">
+        <div class="flex flex-row justify-between mt-2 mx-auto">
             <div @click="inventorySlotOnClick(0)" class="single-item-empty"
                 :class="{ 'border-solid border-yellow-500': selectedItemSlot === 0 }">
                 <font-awesome-icon v-if="inventoryArray[0] === null" icon="fa-solid fa-plus" size="2xs" />
@@ -111,18 +111,22 @@ export default {
                     class="block w-full rounded-md border-gray-300 shadow-sm p-2 mb-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Search for an item" />
             </div>
-            <div class="grid grid-cols-6 gap-2 max-h-96 overflow-y-auto overflow-x-clip">
-                <div v-for="(item, index) in filteredItems" :key="`item-${index}`" class="single-item group relative">
-                <popper trigger="hover" :options="{ placement: 'top', modifiers: { offset: { offset: '0,10px' } } }">
-                    <div class="popper bg-gray-700 text-white text-xs rounded p-1 pointer-events-none">
-                    {{ item[1] }}
+            <div class="flex justify-center max-h-64 overflow-y-auto overflow-x-clip scrollbar-hide">
+                <div class="grid grid-cols-6 gap-6">
+                    <div v-for="(item, index) in filteredItems" :key="`item-${index}`" class="single-item group relative">
+                        <popper trigger="hover"
+                            :options="{ placement: 'top', modifiers: { offset: { offset: '0,10px' } } }">
+                            <div class="popper bg-gray-700 text-white text-xs rounded p-1 pointer-events-none">
+                                {{ item[1] }}
+                            </div>
+ 
+                            <img slot="reference" @click="selectItem(item)" :src="item[2]"
+                                class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-500" />
+                        </popper>
                     </div>
-                    
-                    <img slot="reference" @click="selectItem(item)" :src="item[2]"
-                        class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-500" />
-                </popper>
                 </div>
             </div>
+ 
         </div>
     </div>
 </template>
@@ -132,6 +136,13 @@ export default {
     transition: opacity 0.1s ease-in-out;
     z-index: 10000;
 }
- 
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 </style>
  
