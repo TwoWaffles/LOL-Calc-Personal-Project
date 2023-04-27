@@ -11,6 +11,7 @@ export const useChampionTwoStore = defineStore('championTwoStore', {
         stats: {},
         abilities: {},
         items: { slot0: null, slot1: null, slot2: null, slot3: null, slot4: null, slot5: null },
+        runes: {slot0:null,slot1:null,slot2:null},
         itemsAdded: false,
         targetHealth: 100,
         targetArmor: 0,
@@ -31,7 +32,7 @@ export const useChampionTwoStore = defineStore('championTwoStore', {
                     case "attackSpeed":
                         let attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat
                         let bonusAttackSpeed = value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
-                        let extraItem = 40 + 3 + 35;
+                        //let extraItem = 40 + 3 + 35;
                         if (this.itemsAdded === true) {
                             let extraItem = 0;
                             for (const [slotKey, slotValue] of Object.entries(this.items)) {
