@@ -28,7 +28,7 @@ function filterChampionNamesAndIconsFromData(callback) {
       const champions = JSON.parse(data);
       const champion = champions[championKey];
   
-      const allowed = ['key', 'stats', 'resource', 'abilities', 'attackType'];
+      const allowed = ['key', 'stats', 'resource', 'abilities', 'attackType', 'adaptiveType'];
   
       const filtered = Object.keys(champion)
         .filter(key => allowed.includes(key))

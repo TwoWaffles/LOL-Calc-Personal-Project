@@ -8,9 +8,11 @@ export const useChampionOneStore = defineStore('championOneStore', {
         key: "",
         resource: "",
         attackType: "",
+        adaptiveType: "",
         stats: {},
         abilities: {},
         items: { slot0: null, slot1: null, slot2: null, slot3: null, slot4: null, slot5: null },
+        runeValues: { "adaptiveForce": { "attackDamage": 5.4, "abilityPower": 9 }, "attackSpeed": 10, "abilityHaste": 8, "armor": 6, "magicResistance": 8, "health": 0 },
         runes: { slot0: null, slot1: null, slot2: null },
         itemsAdded: false
 
@@ -27,7 +29,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
 
                 switch (key) {
                     case "attackSpeed":
-                        let attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat
+                        var attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat
                         let bonusAttackSpeed = value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
                         let extraItem = 40 + 3 + 35;
                         if (this.itemsAdded === true) {
@@ -47,8 +49,10 @@ export const useChampionOneStore = defineStore('championOneStore', {
                         break;
 
                     default:
-                        //Champion natural stats
+                        //calculating Champion natural stats
                         calculatedStat = value.flat + value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
+                        //For bonus AD calculation
+                        var baseStat = calculatedStat;
 
                         //TODO: CRIT AND ARMOUR PENETRATION IS AS PERCENT NOT FLAT
                         const PERCENT_STATS = [
@@ -69,18 +73,64 @@ export const useChampionOneStore = defineStore('championOneStore', {
                                     } else {
                                         calculatedStat += slotValue.stats[currentStat].flat;
                                     }
-
-
                                 }
                             }
                         }
 
-                    //if()
-
-
+                }
+                //Calculating Bonus AD stat
+                if (currentStat === "attackDamage") {
+                    newCalculatedStats.bonusAttackDamage = calculatedStat - baseStat;
                 }
                 newCalculatedStats[key] = calculatedStat
             }
+
+            //Rune calculations
+            for (const [slotKey, slotValue] of Object.entries(this.runes)) {
+                switch (slotValue) {
+                    case "adaptiveForce":
+                        let bonusAD = newCalculatedStats.bonusAttackDamage;
+                        let ap = newCalculatedStats.abilityPower;
+                        //If values are the same, then adaptiveForce gained is based on the champion
+                        if (bonusAD === ap) {
+                            if (this.adaptiveType === "PHYSICAL_DAMAGE") {
+                                newCalculatedStats.attackDamage += this.runeValues.adaptiveForce.attackDamage;
+                                //The rune also counts as bonus AD after this calculation
+                                //newCalculatedStats.bonusAttackDamage =+ this.runeValues.adaptiveForce.attackDamage
+                            } else {
+                                newCalculatedStats.abilityPower += this.runeValues.adaptiveForce.abilityPower;
+                            }
+
+                        } else if (bonusAD > ap) {
+                            newCalculatedStats.attackDamage += this.runeValues.adaptiveForce.attackDamage;
+                            //The rune also counts as bonus AD after this calculation
+                            //newCalculatedStats.bonusAttackDamage =+ this.runeValues.adaptiveForce.attackDamage
+                        } else {
+                            newCalculatedStats.abilityPower += this.runeValues.adaptiveForce.abilityPower;
+                        }
+                        break;
+
+                    case "health":
+                        //Formula from: https://leagueoflegends.fandom.com/wiki/Rune_(League_of_Legends)
+                        let addedHealth = 15 + 125 / 17 * (this.level - 1);
+                        //console.log("Health added is: " + addedHealth)
+                        newCalculatedStats.health += addedHealth;
+                        break;
+
+                    case "attackSpeed":
+                        //TODO EXPLAIN THIS
+                            let x = attackSpeedRatio * 10
+                            newCalculatedStats.attackSpeed *= (1 + x / 100)
+                            
+                        break;
+                    default:
+                        let addedValue = this.runeValues[slotValue];
+                        newCalculatedStats[slotValue] += addedValue;
+
+                }
+            }
+
+
             return newCalculatedStats
         },
 
@@ -122,7 +172,6 @@ export const useChampionOneStore = defineStore('championOneStore', {
         setRune(slot, value) {
             this.runes[slot] = value
         }
-
         // calculateStats(){
         //     console.log("calculating")
 

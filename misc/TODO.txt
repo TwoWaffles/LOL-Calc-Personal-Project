@@ -4,23 +4,26 @@ Finish of the stats table:
     MAGIC PEN IS STORED IN SAME AS FLAT AND %
     ALSO Movespeed can have %
 
-    also how to neatly allow me to easily add items to these calcuations and runes (store i guess)
-        - add items to the store
-        - calculate one item stuff
-        - do it for all
+    Mythic passives like kraken slayer
+
+    Rune calculations
+
+    Abilities
 
     
 
-start thinking about rune/masteries
+
 
 
 Keep in mind:
 
 - simpleItemDesc can be null
 
-- some items are attack_damage and others attackDamage
-
 - check your github page for reply to marik data shit
+
+- Bonus attack damage may be a decimal and stuff
+
+- for runes had to add adaptive_type
 
 Notes:
 

@@ -81,14 +81,14 @@ export default {
     <div class="flex flex-col gap-4 w-1/2">
       <!-- Third box -->
       <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
-        <DamageDisplay></DamageDisplay>
+        <DamageDisplay class="text-white"></DamageDisplay>
       </div>
 
       <!-- Fourth box -->
       <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
         <!-- TODO -->
         <!-- ABILITIES AND RUNES? -->
-        <RunePicker :isChampionOne="true" />
+        <RunePicker :isChampionOne="true"/>
       </div>
     </div>
   </div>
