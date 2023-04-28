@@ -34,14 +34,15 @@ export default {
             var attackerLevel = this.championOneStore.level;
             //Formula For Lethality From: https://leagueoflegends.fandom.com/wiki/Armor_penetration
             var attackerFlatArmorPen = attackerLethality * (0.6 + 0.4 * attackerLevel / 18)
-
+            //Applying Armor entration
             targetArmor = targetArmor * (1 - attackerPercentArmorPen);
-            // console.log(targetArmor)
-            // if(targetArmor - attackerFlatArmorPen < 0){
-            //     targetArmor = 0;
-            // } else {
-            //     targetArmor = targetArmor - attackerFlatArmorPen
-            // }
+
+            if(attackerFlatArmorPen > 0)
+            {if(targetArmor - attackerFlatArmorPen < 0){
+                targetArmor = 0;
+            } else {
+                targetArmor = targetArmor - attackerFlatArmorPen
+            }}
 
             var attackerAttackDamage = this.championOneStore.computedStats.attackDamage;
 
