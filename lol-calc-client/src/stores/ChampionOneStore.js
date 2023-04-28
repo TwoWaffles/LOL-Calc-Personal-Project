@@ -31,7 +31,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
                     case "attackSpeed":
                         var attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat
                         let bonusAttackSpeed = value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
-                        let extraItem = 40 + 3 + 35;
+                        //let extraItem = 40 + 3 + 35;
                         if (this.itemsAdded === true) {
                             let extraItem = 0;
                             for (const [slotKey, slotValue] of Object.entries(this.items)) {
@@ -39,13 +39,10 @@ export const useChampionOneStore = defineStore('championOneStore', {
                                     extraItem += slotValue.stats[currentStat].flat;
                                 }
                             }
-                            console.log("extra item is: " + extraItem)
-                            bonusAttackSpeed = bonusAttackSpeed + extraItem
+                            bonusAttackSpeed += extraItem
                         }
-
                         bonusAttackSpeed = bonusAttackSpeed * attackSpeedRatio;
                         calculatedStat = value.flat * (1 + bonusAttackSpeed / 100)
-
                         break;
 
                     default:
@@ -109,19 +106,17 @@ export const useChampionOneStore = defineStore('championOneStore', {
                             newCalculatedStats.abilityPower += this.runeValues.adaptiveForce.abilityPower;
                         }
                         break;
-
                     case "health":
                         //Formula from: https://leagueoflegends.fandom.com/wiki/Rune_(League_of_Legends)
                         let addedHealth = 15 + 125 / 17 * (this.level - 1);
                         //console.log("Health added is: " + addedHealth)
                         newCalculatedStats.health += addedHealth;
                         break;
-
                     case "attackSpeed":
-                        //TODO EXPLAIN THIS
-                            let x = attackSpeedRatio * 10
-                            newCalculatedStats.attackSpeed *= (1 + x / 100)
-                            
+                        //TODO: Better variable names
+                        let x = attackSpeedRatio * 10
+                        let y = this.stats.attackSpeed.flat * (x / 100);
+                        newCalculatedStats.attackSpeed += y
                         break;
                     default:
                         let addedValue = this.runeValues[slotValue];
