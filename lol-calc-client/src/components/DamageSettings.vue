@@ -2,25 +2,25 @@
 import { useDamageSettingsStore } from '../stores/DamageSettingsStore';
 export default {
     setup() {
-        const damageSettingsStore = useDamageSettingsStore()
-
+        const damageSettingsStore = useDamageSettingsStore();
+ 
         return { damageSettingsStore }
     },
     data() {
         return {
-
+ 
         }
     },
     computed: {
-
+ 
     },
-
+ 
     methods: {}
-
+ 
 }
 </script>
-
-
+ 
+ 
 <template>
     <div>
         <h1 class="font-black">Damage Settings</h1>
@@ -34,7 +34,7 @@ export default {
                 <label>AA</label>
             </div>
             <div>
-                <input type="checkbox">
+                <input type="checkbox" ref="critCheckbox" @click="damageSettingsStore.toggleCrit"/>
                 <label>Crit AA</label>
             </div>
             <div>

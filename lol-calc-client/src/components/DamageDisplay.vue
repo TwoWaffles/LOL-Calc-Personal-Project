@@ -1,34 +1,42 @@
 <script>
-import { useChampionOneStore } from '../stores/ChampionOneStore'
-import { useChampionTargetStore } from '../stores/ChampionTargetStore'
+import { useChampionOneStore } from '../stores/ChampionOneStore';
+import { useChampionTargetStore } from '../stores/ChampionTargetStore';
+import { useDamageSettingsStore } from '../stores/DamageSettingsStore';
+ 
 export default {
     setup() {
         const championOneStore = useChampionOneStore();
         const championTargetStore = useChampionTargetStore();
-
-        return { championOneStore, championTargetStore }
+        const damageSettingsStore = useDamageSettingsStore();
+ 
+        return { championOneStore, championTargetStore, damageSettingsStore }
     },
     data() {
         return {}
     },
     computed: {
-
         preMitigationDamage() {
             var autoAttackDamageDealt = 0;
             autoAttackDamageDealt = this.championOneStore.computedStats.attackDamage
 
+        if (this.damageSettingsStore.isCrit) {
+                autoAttackDamageDealt = Math.ceil(autoAttackDamageDealt * 1.75)
+            }
+ 
             return autoAttackDamageDealt
         },
-
         postMitigationDamage() {
             var targetArmor = this.championTargetStore.targetArmor;
             var attackerAttackDamage = this.championOneStore.computedStats.attackDamage;
-
             var mitigatedDamage = attackerAttackDamage * (100 / (100 + targetArmor))
-
+ 
+            if (this.damageSettingsStore.isCrit) {
+                mitigatedDamage = (mitigatedDamage * 1.75) //TODO Infinity Edge
+            }
+ 
             return Math.round(mitigatedDamage)
         }
-
+ 
     },
     methods: {}
 }
