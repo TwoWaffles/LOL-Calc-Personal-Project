@@ -27,7 +27,24 @@ export default {
         },
         postMitigationDamage() {
             var targetArmor = this.championTargetStore.targetArmor;
+
+            //Calculating Armor Pen and Lethality
+            var attackerPercentArmorPen = (this.championOneStore.computedStats.armorPenetration / 100);
+            var attackerLethality = this.championOneStore.computedStats.lethality;
+            var attackerLevel = this.championOneStore.level;
+            //Formula For Lethality From: https://leagueoflegends.fandom.com/wiki/Armor_penetration
+            var attackerFlatArmorPen = attackerLethality * (0.6 + 0.4 * attackerLevel / 18)
+
+            targetArmor = targetArmor * (1 - attackerPercentArmorPen);
+            // console.log(targetArmor)
+            // if(targetArmor - attackerFlatArmorPen < 0){
+            //     targetArmor = 0;
+            // } else {
+            //     targetArmor = targetArmor - attackerFlatArmorPen
+            // }
+
             var attackerAttackDamage = this.championOneStore.computedStats.attackDamage;
+
             var mitigatedDamage = attackerAttackDamage * (100 / (100 + targetArmor))
  
             if (this.damageSettingsStore.isCrit) {
@@ -35,6 +52,9 @@ export default {
             }
  
             return Math.round(mitigatedDamage)
+        },
+        calculateArmorPen(){
+
         }
  
     },
@@ -48,7 +68,7 @@ export default {
             <h1 class="font-bold">Pre-Mitigation</h1>
             <div>Physical Damage: {{ preMitigationDamage }}</div>
             <div>Magical Damage: 0</div>
-            <div>Total Damage {{ preMitigationDamage }}</div>
+            <div>Total Damage: {{ preMitigationDamage }}</div>
         </div>
         <div class="flex flex-col">
             <h1 class="font-bold">Post-Mitigation</h1>
