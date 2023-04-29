@@ -121,7 +121,7 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
 
                 if (key === 'attackDamage') {
                     newCalculatedStats.bonusAttackDamage =
-                        calculatedStat - calculateStat(key, value, this.level);;
+                    calculatedStat - calculateStat(key, value, this.level);
                 }
                 newCalculatedStats[key] = calculatedStat;
             };
