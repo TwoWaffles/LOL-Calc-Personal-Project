@@ -115,10 +115,20 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
                 }
 
                 if (key === 'attackSpeed') {
-                    const attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat;
-                    const bonusAttackSpeed =
-                        calculatedStat * attackSpeedRatio - value.flat;
-                    calculatedStat = value.flat * (1 + bonusAttackSpeed / 100);
+                    //Formula for Attack speed from https://leagueoflegends.fandom.com/wiki/Attack_speed
+                    const attackSpeedRatio = this.stats.attackSpeedRatio.flat
+                    //Calculated stat already has all attack speed bonus from items
+                    //Adding scaling attack speed based on level without the flat amount
+                    calculatedStat += value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
+                    //Adding attack speed from rune
+                    if (this.runes.slot0 === "attackSpeed") { calculatedStat += 10 }
+                    //Scaling the attack speed based on a champions ratio (higher ratio = high gain from bonus attack speed)
+                    scaledBonusAttackSpeed = (calculatedStat/100) * attackSpeedRatio;
+                    //Adding the base attack speed to scaled
+                    finalAttackSpeed = value.flat + scaledBonusAttackSpeed;
+
+                    newCalculatedStats[key] = finalAttackSpeed
+                    continue;
                 }
 
                 if (key === 'attackDamage') {
@@ -161,13 +171,6 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
                         break;
 
                     case 'attackSpeed':
-                        const attackSpeedRatio =
-                            this.stats.attackSpeedRatio.flat /
-                            this.stats.attackSpeed.flat;
-                        const runeValueToBeAdded = attackSpeedRatio * 10;
-                        const ratioToBeAdded =
-                            this.stats.attackSpeed.flat * (runeValueToBeAdded / 100);
-                        newCalculatedStats.attackSpeed += ratioToBeAdded;
                         break;
 
                     default:

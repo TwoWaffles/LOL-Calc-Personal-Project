@@ -6,9 +6,9 @@ Finish of the stats table:
 
     Mythic passives like kraken slayer
 
-    Rune calculations
-    - FIX ATTACKSPEED, IT'S SUPPOSED TO BE BONUS NOT JUST ADDED ON AT THE END IDK
-    Also replicate runes in targetChampionSTore aswell
+    Search bar is not isVisible
+
+    healthREgen and manaRegen for items, moveSpeed can have % (and has it's own calculation)
 
     Abilities
 
@@ -19,7 +19,9 @@ Finish of the stats table:
 
 Keep in mind:
 
-- JHIN attack speed doesn't work
+- JHIN attack speed doesn't work (his ratio is 0 makes sense)
+
+- Graves is different ingame cause reloading, volibear works i guess 
 
 - simpleItemDesc can be null
 

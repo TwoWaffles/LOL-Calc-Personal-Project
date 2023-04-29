@@ -55,9 +55,9 @@ export const useChampionOneStore = defineStore('championOneStore', {
     getters: {
         computedStats() {
             const newCalculatedStats = this.calculateStatsWithItems();
-            if(this.key !== ""){
-            this.applyRunes(newCalculatedStats);
-        }
+            if (this.key !== "") {
+                this.applyRunes(newCalculatedStats);
+            }
             return newCalculatedStats;
         },
     },
@@ -87,34 +87,45 @@ export const useChampionOneStore = defineStore('championOneStore', {
 
         calculateStatsWithItems() {
             const newCalculatedStats = {};
+            //Loops through all stats, then adds item values
             for (const [key, value] of Object.entries(this.stats)) {
-              let calculatedStat = calculateStat(value, this.level);
-          
-              if (this.itemsAdded) {
-                for (const item of Object.values(this.items)) {
-                  if (item && item.stats[key]) {
-                    calculatedStat += isPercentStat(key)
-                      ? item.stats[key].percent
-                      : item.stats[key].flat;
-                  }
+                let calculatedStat = 0;
+
+                if (this.itemsAdded) {
+                    for (const item of Object.values(this.items)) {
+                        if (item && item.stats[key]) {
+                            calculatedStat += isPercentStat(key)
+                                ? item.stats[key].percent
+                                : item.stats[key].flat;
+                        }
+                    }
                 }
-              }
 
                 if (key === 'attackSpeed') {
-                    const attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat;
-                    const bonusAttackSpeed =
-                        calculatedStat * attackSpeedRatio - value.flat;
-                    calculatedStat = value.flat * (1 + bonusAttackSpeed / 100);
+                    //Formula for Attack speed from https://leagueoflegends.fandom.com/wiki/Attack_speed
+                    const attackSpeedRatio = this.stats.attackSpeedRatio.flat
+                    //Calculated stat already has all attack speed bonus from items
+                    //Adding scaling attack speed based on level without the flat amount
+                    calculatedStat += value.perLevel * (this.level - 1) * (0.7025 + 0.0175 * (this.level - 1));
+                    //Adding attack speed from rune
+                    if (this.runes.slot0 === "attackSpeed") { calculatedStat += 10 }
+                    //Scaling the attack speed based on a champions ratio (higher ratio = high gain from bonus attack speed)
+                    scaledBonusAttackSpeed = (calculatedStat/100) * attackSpeedRatio;
+                    //Adding the base attack speed to scaled
+                    finalAttackSpeed = value.flat + scaledBonusAttackSpeed;
+
+                    newCalculatedStats[key] = finalAttackSpeed
+                    continue;
                 }
 
-                if(key === 'healthRegen'){
-                    calculateStat
-                }
+                calculatedStat += calculateStat(value, this.level)
+
+                //Figure out helath regen idk
 
                 //Calculating Bonus AD for Runes
                 if (key === 'attackDamage') {
                     newCalculatedStats.bonusAttackDamage =
-                        calculatedStat - calculateStat(key, value, this.level);
+                        calculatedStat - calculateStat(value, this.level);
                 }
                 newCalculatedStats[key] = calculatedStat;
             };
@@ -152,13 +163,6 @@ export const useChampionOneStore = defineStore('championOneStore', {
                         break;
 
                     case 'attackSpeed':
-                        const attackSpeedRatio =
-                            this.stats.attackSpeedRatio.flat /
-                            this.stats.attackSpeed.flat;
-                        const runeValueToBeAdded = attackSpeedRatio * 10;
-                        const ratioToBeAdded =
-                            this.stats.attackSpeed.flat * (runeValueToBeAdded / 100);
-                        newCalculatedStats.attackSpeed += ratioToBeAdded;
                         break;
 
                     default:
