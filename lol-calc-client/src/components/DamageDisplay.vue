@@ -2,13 +2,13 @@
 import { useChampionOneStore } from '../stores/ChampionOneStore';
 import { useChampionTargetStore } from '../stores/ChampionTargetStore';
 import { useDamageSettingsStore } from '../stores/DamageSettingsStore';
- 
+
 export default {
     setup() {
         const championOneStore = useChampionOneStore();
         const championTargetStore = useChampionTargetStore();
         const damageSettingsStore = useDamageSettingsStore();
- 
+
         return { championOneStore, championTargetStore, damageSettingsStore }
     },
     data() {
@@ -19,10 +19,10 @@ export default {
             var autoAttackDamageDealt = 0;
             autoAttackDamageDealt = this.championOneStore.computedStats.attackDamage
 
-        if (this.damageSettingsStore.isCrit) {
+            if (this.damageSettingsStore.isCrit) {
                 autoAttackDamageDealt = Math.ceil(autoAttackDamageDealt * 1.75)
             }
- 
+
             return autoAttackDamageDealt
         },
         postMitigationDamage() {
@@ -37,27 +37,28 @@ export default {
             //Applying Armor entration
             targetArmor = targetArmor * (1 - attackerPercentArmorPen);
 
-            if(attackerFlatArmorPen > 0)
-            {if(targetArmor - attackerFlatArmorPen < 0){
-                targetArmor = 0;
-            } else {
-                targetArmor = targetArmor - attackerFlatArmorPen
-            }}
+            if (attackerFlatArmorPen > 0) {
+                if (targetArmor - attackerFlatArmorPen < 0) {
+                    targetArmor = 0;
+                } else {
+                    targetArmor = targetArmor - attackerFlatArmorPen
+                }
+            }
 
             var attackerAttackDamage = this.championOneStore.computedStats.attackDamage;
 
             var mitigatedDamage = attackerAttackDamage * (100 / (100 + targetArmor))
- 
+
             if (this.damageSettingsStore.isCrit) {
                 mitigatedDamage = (mitigatedDamage * 1.75) //TODO Infinity Edge
             }
- 
+
             return Math.round(mitigatedDamage)
         },
-        calculateArmorPen(){
+        calculateArmorPen() {
 
         }
- 
+
     },
     methods: {}
 }

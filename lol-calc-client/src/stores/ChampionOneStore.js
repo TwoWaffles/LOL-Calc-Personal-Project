@@ -114,9 +114,9 @@ export const useChampionOneStore = defineStore('championOneStore', {
                         break;
                     case "attackSpeed":
                         //TODO: Better variable names
-                        let x = attackSpeedRatio * 10
-                        let y = this.stats.attackSpeed.flat * (x / 100);
-                        newCalculatedStats.attackSpeed += y
+                        let runeValueToBeAdded = attackSpeedRatio * 10
+                        let ratioToBeAdded = this.stats.attackSpeed.flat * (runeValueToBeAdded / 100);
+                        newCalculatedStats.attackSpeed += ratioToBeAdded
                         break;
                     default:
                         let addedValue = this.runeValues[slotValue];
