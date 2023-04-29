@@ -52,7 +52,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
         itemsAdded: false,
         mythicAdded: false,
         mythicValue: {},
-        amountOfLegendaries: 0
+        amountOfLegendaries: 0,
+        buildCost: 0
     }),
 
     getters: {
@@ -77,14 +78,15 @@ export const useChampionOneStore = defineStore('championOneStore', {
         async getItemData(itemId, itemSlotNumber) {
             const response = await ItemsService.getItemData(itemId);
             this.items['slot' + itemSlotNumber] = response.data;
-            this.checkForMythicAndLegendaries();
+            this.checkForMythicsAndPrice();
             this.itemsAdded = true;
         },
 
-        checkForMythicAndLegendaries() {
+        checkForMythicsAndPrice() {
             let numberOfLegends = 0;
             this.mythicAdded = false;
             this.mythicValue = {};
+            this.buildCost = 0;
             for (const item of Object.values(this.items)) {
                 if (item) {
                     if (item.rank[0] === "MYTHIC") {
@@ -106,6 +108,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
                     if (item.rank[0] === "LEGENDARY") {
                         numberOfLegends += 1
                     }
+
+                    this.buildCost += item.shop.prices.total;
                 }
             }
 
