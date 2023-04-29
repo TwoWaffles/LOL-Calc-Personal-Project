@@ -3,13 +3,15 @@ import ItemsService from '../../services/ItemsService';
 import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
 import { useChampionOneStore } from '../../stores/ChampionOneStore';
- 
- 
+import { useChampionTargetStore } from '../../stores/ChampionTargetStore';
+
+
 export default {
     setup() {
         const championOneStore = useChampionOneStore()
- 
-        return { championOneStore }
+        const championTargetStore = useChampionTargetStore()
+
+        return { championOneStore, championTargetStore }
     },
     data() {
         return {
@@ -20,13 +22,16 @@ export default {
             inventoryArray: [null, null, null, null, null, null]
         }
     },
+    props: {
+        isChampionOne: Boolean
+    },
     computed: {
         filteredItems() {
             const query = this.searchQuery1.toLowerCase()
             if (this.searchQuery = "") {
                 return this.itemsArray;
             }
- 
+
             return this.itemsArray.filter((item) => {
                 const name = item[1].toLowerCase();
                 return name.includes(query);
@@ -49,11 +54,11 @@ export default {
                 this.selectedItemSlot = null;
                 return;
             }
- 
+
             if (this.selectedItemSlot === null) {
                 this.isVisible = !this.isVisible;
             }
- 
+
             this.selectedItemSlot = slotNumber;
             console.log("Item slot " + slotNumber + " has been selected")
         },
@@ -61,9 +66,14 @@ export default {
             this.inventoryArray[this.selectedItemSlot] = item;
             this.isVisible = false;
             console.log("Added " + item[1] + " to inventory slot " + this.selectedItemSlot);
- 
-            this.championOneStore.getItemData(item[0], this.selectedItemSlot);
- 
+
+            if (this.isChampionOne) {
+                this.championOneStore.getItemData(item[0], this.selectedItemSlot);
+            }
+            else {
+                this.championTargetStore.getItemData(item[0], this.selectedItemSlot);
+            }
+
             this.selectedItemSlot = null;
         }
     }
@@ -104,7 +114,7 @@ export default {
                 <img v-else :src="inventoryArray[5][2]">
             </div>
         </div>
- 
+
         <div class="relative">
             <div class="p-4">
                 <div v-show="isVisible" class="absolute inset-0">
@@ -138,11 +148,11 @@ export default {
     transition: opacity 0.1s ease-in-out;
     z-index: 10000;
 }
- 
+
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
- 
+
 .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

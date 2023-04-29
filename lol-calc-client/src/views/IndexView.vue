@@ -50,7 +50,7 @@ export default {
         <DropdownChampions class="w-1/2" :isChampionOne="true"></DropdownChampions>
         <DropdownLevel class="w-1/2" :isChampionOne="true"></DropdownLevel>
       </div>
-      <ItemInventory></ItemInventory>
+      <ItemInventory :isChampionOne="true"></ItemInventory>
       <ChampionDisplay v-if="!(championOneStore.key === '')" :isChampionOne="true"></ChampionDisplay>
     </div>
  
@@ -69,6 +69,7 @@ export default {
           <DropdownChampions class="w-1/2" :isChampionOne="false"></DropdownChampions>
           <DropdownLevel class="w-1/2" :isChampionOne="false"></DropdownLevel>
         </div>
+        <ItemInventory :isChampionOne="false"></ItemInventory>
  
         <ChampionDisplay v-if="!(championOneStore.key === '')" :isChampionOne="false"></ChampionDisplay>
       </div>
@@ -82,6 +83,7 @@ export default {
     <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl h-full">
       <h1 class="text-white text-3xl text-center font-bold pb-4">Runes & Abilities</h1>
       <RunePicker :isChampionOne="true" />
+      <RunePicker :isChampionOne="false"/>
     </div>
  
     <!-- Fourth box -->

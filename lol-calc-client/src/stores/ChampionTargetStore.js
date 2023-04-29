@@ -8,6 +8,8 @@ const PERCENT_STATS = [
     'magicPenetration',
     'lifesteal',
     'omnivamp',
+    'healthRegen',
+    'manaRegen'
 ];
 
 function calculateStat(value, level) {
@@ -48,6 +50,11 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
         },
         runes: { slot0: null, slot1: null, slot2: null },
         itemsAdded: false,
+        mythicAdded: false,
+        mythicValue: {},
+        amountOfLegendaries: 0,
+        buildCost: 0,
+        nonMythicPassives: { name: "passiveEffect" },
         targetHealth: 100,
         targetArmor: 0,
         targetMagicResistance: 0
@@ -76,17 +83,10 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
         async getItemData(itemId, itemSlotNumber) {
             const response = await ItemsService.getItemData(itemId);
             this.items['slot' + itemSlotNumber] = response.data;
+            this.checkForMythicsAndPrice();
             this.itemsAdded = true;
         },
-
-        setLevel(level) {
-            this.level = level;
-        },
-
-        setRune(slot, value) {
-            this.runes[slot] = value;
-        },
-
+        
         setTargetHealth(health) {
             this.targetHealth = health;
         },
@@ -99,10 +99,66 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
             this.targetMagicResistance = magicResistance;
         },
 
+        checkForMythicsAndPrice() {
+            let numberOfLegends = 0;
+            this.mythicAdded = false;
+            this.mythicValue = {};
+            this.buildCost = 0;
+            this.nonMythicPassives = {};
+            let filteredMythicPassives = []
+            for (const item of Object.values(this.items)) {
+                if (item) {
+                    if (item.rank[0] === "MYTHIC") {
+                        this.mythicAdded = true;
+                        let passiveOfItem = item.passives
+                        let mythicObj = passiveOfItem.find(passive => passive.mythic === true);
+                        if (mythicObj) {
+                            for (const [key, value] of Object.entries(mythicObj.stats)) {
+                                if (value.flat > 0 || value.percent > 0) {
+                                    console.log("Adding to mythicValue")
+                                    if (key === 'magicPenetration') {
+                                        this.mythicValue[key] = value.flat
+                                    } else { this.mythicValue[key] = isPercentStat(key) ? value.percent : value.flat }
+                                }
+                            }
+                        }
+                    }
+
+                    if (item.rank[0] === "LEGENDARY") {
+                        numberOfLegends += 1
+                    }
+
+                    //Getting all non mythic passives
+                    const nonMythicPassivesOfItem = item.passives.filter(passive => passive.mythic === false);
+                    for (const passive of nonMythicPassivesOfItem) {
+                        filteredMythicPassives.push(passive);
+                    }
+                    //Calculating build cost
+                    this.buildCost += item.shop.prices.total;
+                }
+            }
+
+            this.nonMythicPassives = filteredMythicPassives.reduce((obj, passive) => {
+                obj[passive.name] = passive;
+                return obj;
+            }, {});
+
+            this.amountOfLegendaries = numberOfLegends;
+        },
+
+        setLevel(level) {
+            this.level = level;
+        },
+
+        setRune(slot, value) {
+            this.runes[slot] = value;
+        },
+
         calculateStatsWithItems() {
-            const newCalculatedStats = {};
+            const newCalculatedStats = { flatMagicPenetration: 0 };
+            //Loops through all stats, then adds item values
             for (const [key, value] of Object.entries(this.stats)) {
-                let calculatedStat = calculateStat(value, this.level);
+                let calculatedStat = 0;
 
                 if (this.itemsAdded) {
                     for (const item of Object.values(this.items)) {
@@ -110,6 +166,15 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
                             calculatedStat += isPercentStat(key)
                                 ? item.stats[key].percent
                                 : item.stats[key].flat;
+                        }
+                    }
+
+                    if (this.mythicAdded) {
+                        if (this.mythicValue[key]) {
+                            if (key === 'magicPenetration') {
+                                newCalculatedStats.flatMagicPenetration += (this.mythicValue[key] * this.amountOfLegendaries)
+                            }
+                            calculatedStat += (this.mythicValue[key] * this.amountOfLegendaries)
                         }
                     }
                 }
@@ -123,7 +188,7 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
                     //Adding attack speed from rune
                     if (this.runes.slot0 === "attackSpeed") { calculatedStat += 10 }
                     //Scaling the attack speed based on a champions ratio (higher ratio = high gain from bonus attack speed)
-                    let scaledBonusAttackSpeed = (calculatedStat/100) * attackSpeedRatio;
+                    let scaledBonusAttackSpeed = (calculatedStat / 100) * attackSpeedRatio;
                     //Adding the base attack speed to scaled
                     let finalAttackSpeed = value.flat + scaledBonusAttackSpeed;
 
@@ -131,9 +196,45 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
                     continue;
                 }
 
+                if (key === 'healthRegen' || key === 'manaRegen') {
+                    let finalRegen = calculateStat(value, this.level) * (1 + calculatedStat / 100)
+                    //Special case where some health regen items give flat valuse
+                    if (this.itemsAdded) {
+                        if (key === "healthRegen") {
+                            for (const item of Object.values(this.items)) {
+                                if (item && item.stats[key]) {
+                                    finalRegen += item.stats[key].flat
+                                }
+                            }
+                        }
+                    }
+
+                    newCalculatedStats[key] = finalRegen;
+                    continue;
+                }
+
+                if (key === 'magicPenetration') {
+                    let addingFlatMagicPenetration = 0
+                    if (this.itemsAdded) {
+                        for (const item of Object.values(this.items)) {
+                            if (item && item.stats[key]) {
+                                addingFlatMagicPenetration += item.stats[key].flat
+                            }
+                        }
+                    }
+
+                    newCalculatedStats.flatMagicPenetration += addingFlatMagicPenetration;
+                }
+
+                //Adding flat + perLevel scaling to the rest of stats
+                calculatedStat += calculateStat(value, this.level)
+
+
+
+                //Calculating Bonus AD for Runes
                 if (key === 'attackDamage') {
                     newCalculatedStats.bonusAttackDamage =
-                        calculatedStat - calculateStat(key, value, this.level);
+                        calculatedStat - calculateStat(value, this.level);
                 }
                 newCalculatedStats[key] = calculatedStat;
             };
