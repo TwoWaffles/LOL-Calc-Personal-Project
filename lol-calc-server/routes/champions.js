@@ -139,9 +139,10 @@ function filterChampionNamesAndIconsFromData(callback) {
     }
 
 
-router.get('/xd', (req, res) => {
+router.get('/updateChampionData', (req, res) => {
 
     res.send("LOL");
+    //TODO: figure out how to update data
 
 });
 

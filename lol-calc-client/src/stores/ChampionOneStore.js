@@ -118,9 +118,36 @@ export const useChampionOneStore = defineStore('championOneStore', {
                     continue;
                 }
 
+                if(key === 'healthRegen' || key === 'manaRegen') {
+                    let finalRegen = calculateStat(value, this.level) * (1 + calculatedStat / 100)
+                    //Special case where some health regen items give flat valuse
+                    if(key === "healthRegen"){
+                        for (const item of Object.values(this.items)) {
+                            if (item && item.stats[key]) {
+                                finalRegen += item.stats[key].flat
+                            }
+                        }
+                    }
+
+                    newCalculatedStats[key] = finalRegen;
+                    continue;
+                }
+
+                if(key === 'magicPenetration'){
+                    let flatMagicPenetration = 0
+                    for (const item of Object.values(this.items)) {
+                        if (item && item.stats[key]) {
+                            flatMagicPenetration += item.stats[key].flat
+                        }
+                    }
+
+                    newCalculatedStats.flatMagicPenetration = flatMagicPenetration;
+                }
+
+                //Adding flat + perLevel scaling to the rest of stats
                 calculatedStat += calculateStat(value, this.level)
 
-                //Figure out helath regen idk
+               
 
                 //Calculating Bonus AD for Runes
                 if (key === 'attackDamage') {

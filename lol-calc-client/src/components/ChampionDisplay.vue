@@ -115,7 +115,7 @@ export default {
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/magicPenetration_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ "todo" + "|" + (getStore.computedStats.magicPenetration ?? 0) + "%" }}</span>
+                    <span> {{getStore.computedStats.flatMagicPenetration ?? 0}} | {{ (getStore.computedStats.magicPenetration ?? 0) + "%" }}</span>
                 </td>
             </tr>
             <tr class="bg-gray-700">

@@ -113,6 +113,8 @@ function fixItemsFileFormat() {
         console.error(err);
         return;
       }
+
+      console.log("Fixed formatting and saved formattedItems")
     });
   });
 }
