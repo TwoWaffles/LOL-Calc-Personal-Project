@@ -105,28 +105,30 @@ export default {
             </div>
         </div>
  
-        <div v-show="isVisible" class="border mt-2 relative">
-            <div class="relative">
-                <input v-model="searchQuery1" type="text"
-                    class="block w-full rounded-md border-gray-300 shadow-sm p-2 mb-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Search for an item" />
-            </div>
-            <div class="flex justify-center max-h-64 overflow-y-auto overflow-x-clip scrollbar-hide">
-                <div class="grid grid-cols-6 gap-6">
-                    <div v-for="(item, index) in filteredItems" :key="`item-${index}`" class="single-item group relative">
-                        <popper trigger="hover"
-                            :options="{ placement: 'top', modifiers: { offset: { offset: '0,10px' } } }">
-                            <div class="popper bg-gray-700 text-white text-xs rounded p-1 pointer-events-none">
-                                {{ item[1] }}
+        <div class="relative">
+            <div class="p-4">
+                <div v-show="isVisible" class="absolute inset-0">
+                    <div>
+                        <input v-model="searchQuery1" type="text" class="block w-full rounded-md shadow-sm p-2 mb-2"
+                            placeholder="Search for an item" />
+                    </div>
+                    <div
+                        class="flex bg-gray-500 rounded-md border-yellow-500 border-2 justify-center max-h-64 overflow-y-auto overflow-x-clip scrollbar-hide">
+                        <div class="grid grid-cols-6 gap-2 pt-2">
+                            <div v-for="(item, index) in filteredItems" :key="`item-${index}`" class="single-item group">
+                                <popper trigger="hover"
+                                    :options="{ placement: 'top', modifiers: { offset: { offset: '0,10px' } } }">
+                                    <div class="popper bg-gray-700 text-white text-xs rounded pointer-events-none">
+                                        {{ item[1] }}
+                                    </div>
+                                    <img slot="reference" @click="selectItem(item)" :src="item[2]"
+                                        class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-500" />
+                                </popper>
                             </div>
- 
-                            <img slot="reference" @click="selectItem(item)" :src="item[2]"
-                                class="border-2 border-gray-700 rounded h-14 w-14 hover:border-yellow-500" />
-                        </popper>
+                        </div>
                     </div>
                 </div>
             </div>
- 
         </div>
     </div>
 </template>
@@ -136,13 +138,13 @@ export default {
     transition: opacity 0.1s ease-in-out;
     z-index: 10000;
 }
-
+ 
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
+ 
 .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 </style>
- 

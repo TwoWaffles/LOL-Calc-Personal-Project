@@ -21,7 +21,7 @@ Keep in mind:
 
 - JHIN attack speed doesn't work (his ratio is 0 makes sense)
 
-- Graves is different ingame cause reloading, volibear works i guess 
+- Graves is different ingame cause reloading, volibear/ekko works i guess 
 
 - simpleItemDesc can be null
 

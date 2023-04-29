@@ -1,14 +1,14 @@
 <script>
 import { useChampionTargetStore } from '../stores/ChampionTargetStore';
-
+ 
 export default {
-
+ 
     setup() {
         const championTargetStore = useChampionTargetStore()
         return { championTargetStore }
     },
     data() {
-
+ 
         return {
             health: this.championTargetStore.targetHealth,
             armor: this.championTargetStore.targetArmor,
@@ -34,22 +34,25 @@ export default {
     },
 };
 </script>
-
+ 
 <template>
     <div>
-        <h1>Character Stats</h1>
-        <div>
-            <label>Health:</label>
-            <input type="number" v-model.number="health" @input="updateHealth" class="block rounded-md border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"/>
+        <h2 class="text-white text-2xl bg-gray-900 py-2 px-4 mb-4 rounded-xl text-center font-bold">Target Dummy Stats</h2>
+        <div class="w-full bg-gray-900 text-white mt-5 rounded-xl p-4">
+            <div>
+                <label class="pb-2 font-bold">Health:</label>
+                <input type="number" v-model.number="health" @input="updateHealth"
+                    class="w-full block rounded-md border-gray-300 bg-gray-500 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+            <div>
+                <label class="pb-2 font-bold">Armor:</label>
+                <input type="number" v-model.number="armor" @input="updateArmor"
+                    class="w-full block rounded-md border-gray-300 bg-gray-500 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+            <div>
+                <label class="pb-2 font-bold">Magic Resistance:</label>
+                <input type="number" v-model.number="magicResistance" @input="updateMagicResistance"
+                    class="w-full block rounded-md border-gray-300 bg-gray-500 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
         </div>
-        <div>
-            <label>Armor:</label>
-            <input type="number" v-model.number="armor" @input="updateArmor" class="block rounded-md border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" />
-        </div>
-        <div>
-            <label>Magic Resistance:</label>
-            <input type="number" v-model.number="magicResistance" @input="updateMagicResistance" class="block rounded-md border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" />
-        </div>
-    </div>
-</template>
- 
+    </div></template>

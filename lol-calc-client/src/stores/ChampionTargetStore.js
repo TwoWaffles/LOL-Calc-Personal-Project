@@ -123,9 +123,9 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
                     //Adding attack speed from rune
                     if (this.runes.slot0 === "attackSpeed") { calculatedStat += 10 }
                     //Scaling the attack speed based on a champions ratio (higher ratio = high gain from bonus attack speed)
-                    scaledBonusAttackSpeed = (calculatedStat/100) * attackSpeedRatio;
+                    let scaledBonusAttackSpeed = (calculatedStat/100) * attackSpeedRatio;
                     //Adding the base attack speed to scaled
-                    finalAttackSpeed = value.flat + scaledBonusAttackSpeed;
+                    let finalAttackSpeed = value.flat + scaledBonusAttackSpeed;
 
                     newCalculatedStats[key] = finalAttackSpeed
                     continue;

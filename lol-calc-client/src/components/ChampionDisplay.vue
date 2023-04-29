@@ -1,13 +1,13 @@
 <script>
 import { useChampionOneStore } from '../stores/ChampionOneStore';
 import { useChampionTargetStore } from '../stores/ChampionTargetStore';
-
+ 
 const STATS_TO_DISPLAY = ["attackDamage", "abilityPower", "armor", "magicResistance", "attackSpeed", "abilityHaste", "criticalStrikeChance", "movespeed", "healthRegen", "manaRegen"];
 export default {
     setup() {
         const championOneStore = useChampionOneStore();
         const championTargetStore = useChampionTargetStore();
-
+ 
         return { championOneStore, championTargetStore };
     },
     data() {
@@ -29,8 +29,18 @@ export default {
                 100
             );
         },
+        getResource() {
+            if (this.getStore.resource === 'MANA') {
+                return this.roundNumber(this.getStore.computedStats.mana, 0);
+            }
+            return this.getStore.resource || 0;
+        }
     },
-    methods: {},
+    methods: {
+        roundNumber(num, dec) {
+            return num ? +(Math.round(num + "e+" + dec)  + "e-" + dec) : 0;
+        }
+    },
 };
 </script>
  
@@ -41,12 +51,11 @@ export default {
             <tr>
                 <td class="py-2 px-2 w-1/2">
                     <img src="/src/assets/statIcons/health_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.health }}</span>
+                    <span>{{ getStore.computedStats.health}}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/mana_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span v-if="getStore.resource === 'MANA'">{{ getStore.computedStats.mana }}</span>
-                    <span v-else>{{ getStore.resource }}</span>
+                    <span> {{ getResource }}</span>
                 </td>
             </tr>
             <tr class="bg-gray-700">
@@ -56,13 +65,13 @@ export default {
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/abilityPower_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.abilityPower }}</span>
+                    <span>{{ getStore.computedStats.abilityPower ?? 0}}</span>
                 </td>
             </tr>
             <tr>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/armor_Icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.armor + "|" + percentReductionArmor + "%" }}</span>
+                    <span>{{getStore.computedStats.armor }} | {{ percentReductionArmor ? percentReductionArmor + "%" : 0 }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/magicResistance_icon.png" class="h-5 w-5 inline-block mr-2">
@@ -76,7 +85,7 @@ export default {
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/abilityHaste_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.abilityHaste }}</span>
+                    <span>{{ getStore.computedStats.abilityHaste ?? 0}}</span>
                 </td>
             </tr>
             <tr>
@@ -86,7 +95,7 @@ export default {
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/movespeed_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.movespeed }}</span>
+                    <span>{{ getStore.computedStats.movespeed ?? 0}}</span>
                 </td>
             </tr>
             <tr class="bg-gray-700">
@@ -102,32 +111,31 @@ export default {
             <tr>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/armorPenetration_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.lethality + "|" + this.getStore.computedStats.armorPenetration + "%"
-                    }}</span>
+                    <span>{{ getStore.computedStats.lethality ?? 0}} | {{ (getStore.computedStats.armorPenetration ?? 0) + "%"}}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/magicPenetration_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ "todo" + "|" + this.getStore.computedStats.magicPenetration + "%" }}</span>
+                    <span>{{ "todo" + "|" + (getStore.computedStats.magicPenetration ?? 0) + "%" }}</span>
                 </td>
             </tr>
             <tr class="bg-gray-700">
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/lifesteal_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.lifesteal + "%" }}</span>
+                    <span>{{ (getStore.computedStats.lifesteal ?? 0) + "%" }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/omnivamp_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.omnivamp + "%" }}</span>
+                    <span>{{ (getStore.computedStats.omnivamp ?? 0) + "%" }}</span>
                 </td>
             </tr>
             <tr>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/attackRange_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.attackRange }}</span>
+                    <span>{{ getStore.computedStats.attackRange ?? 0 }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/tenacity_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.tenacity }}</span>
+                    <span>{{ getStore.computedStats.tenacity ?? 0 }}</span>
                 </td>
             </tr>
         </table>

@@ -61,10 +61,10 @@ export default {
       </svg>
     </div>
  
-    <div v-show="isVisible" class="absolute z-50 mt-2 py-2 w-full bg-gray-800 rounded-md shadow-lg select-none ...">
+    <div v-show="isVisible" class="absolute z-50 mt-2 py-2 w-full bg-gray-800 rounded-md shadow-lg select-none">
  
       <ul class="mt-2 max-h-60 overflow-y-auto">
-        <li v-for="level in LEVEL_CAP" class="cursor-pointer py-1 px-3 hover:bg-gray-800 hover:text-white"
+        <li v-for="level in LEVEL_CAP" class="cursor-pointer py-1 px-3 hover:bg-gray-500 hover:text-white"
           @click="selectLevel(level)">
           <div class="flex flex-row items-center">
             <span class="">{{ level }}</span>
