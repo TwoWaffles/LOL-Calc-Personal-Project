@@ -72,7 +72,7 @@ export default {
  
 <template>
     <div>
-        <div class="flex flex-row justify-between mt-2 mx-auto">
+        <div class="flex flex-row justify-between mt-2 mx-auto text-white bg-gray-900 py-2 px-2 mb-4 rounded-xl">
             <div @click="inventorySlotOnClick(0)" class="single-item-empty"
                 :class="{ 'border-solid border-yellow-500': selectedItemSlot === 0 }">
                 <font-awesome-icon v-if="inventoryArray[0] === null" icon="fa-solid fa-plus" size="2xs" />
@@ -105,7 +105,7 @@ export default {
             </div>
         </div>
  
-        <div v-show="isVisible" class="border mt-2">
+        <div v-show="isVisible" class="border mt-2 relative">
             <div class="relative">
                 <input v-model="searchQuery1" type="text"
                     class="block w-full rounded-md border-gray-300 shadow-sm p-2 mb-2 focus:ring-blue-500 focus:border-blue-500"

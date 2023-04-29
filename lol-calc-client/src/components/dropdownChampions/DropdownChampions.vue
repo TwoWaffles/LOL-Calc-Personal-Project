@@ -85,16 +85,16 @@ export default {
       </svg>
     </div>
 
-    <div v-show="isVisible" class="absolute z-50 mt-2 py-2 w-full bg-blue-200 rounded-md shadow-lg select-none ...">
+    <div v-show="isVisible" class="absolute z-50 mt-2 py-2 w-full bg-gray-800 rounded-md shadow-lg select-none ...">
       <div class="relative">
         <input v-model="searchQuery" type="text"
-          class="block w-full rounded-md border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+          class="block w-full rounded-md border-gray-300 bg-gray-100 text-white shadow-sm p-2 focus:ring-yellow-500 focus:border-gray-500"
           placeholder="Search for a Champion">
       </div>
 
       <ul class="mt-2 max-h-60 overflow-y-auto">
         <li v-for="(champion, index) in filteredChampions" :key="`champion-${index}`"
-          class="cursor-pointer py-1 px-3 hover:bg-blue-500 hover:text-white" @click="selectChampion(champion)">
+          class="cursor-pointer py-1 px-3 hover:bg-gray-500 hover:text-white" @click="selectChampion(champion)">
           <div class="flex flex-row items-center">
             <img :src="champion[1]" class="h-7 w-7 inline-block mr-2 rounded-full">
             <span class="">{{ champion[0] }}</span>

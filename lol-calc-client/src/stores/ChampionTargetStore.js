@@ -10,7 +10,7 @@ const PERCENT_STATS = [
     'omnivamp',
 ];
 
-function calculateStat(key, value, level) {
+function calculateStat(value, level) {
     return (
         value.flat +
         value.perLevel * (level - 1) * (0.7025 + 0.0175 * (level - 1))
@@ -57,7 +57,9 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
     getters: {
         computedStats() {
             const newCalculatedStats = this.calculateStatsWithItems();
-            this.applyRunes(newCalculatedStats);
+            if (this.key !== "") {
+                this.applyRunes(newCalculatedStats);
+            }
             return newCalculatedStats;
         },
     },
@@ -100,17 +102,17 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
         calculateStatsWithItems() {
             const newCalculatedStats = {};
             for (const [key, value] of Object.entries(this.stats)) {
-              let calculatedStat = calculateStat(key, value, this.level);
-          
-              if (this.itemsAdded) {
-                for (const item of Object.values(this.items)) {
-                  if (item && item.stats[key]) {
-                    calculatedStat += isPercentStat(key)
-                      ? item.stats[key].percent
-                      : item.stats[key].flat;
-                  }
+                let calculatedStat = calculateStat(value, this.level);
+
+                if (this.itemsAdded) {
+                    for (const item of Object.values(this.items)) {
+                        if (item && item.stats[key]) {
+                            calculatedStat += isPercentStat(key)
+                                ? item.stats[key].percent
+                                : item.stats[key].flat;
+                        }
+                    }
                 }
-              }
 
                 if (key === 'attackSpeed') {
                     const attackSpeedRatio = this.stats.attackSpeedRatio.flat / value.flat;
@@ -121,7 +123,7 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
 
                 if (key === 'attackDamage') {
                     newCalculatedStats.bonusAttackDamage =
-                    calculatedStat - calculateStat(key, value, this.level);
+                        calculatedStat - calculateStat(key, value, this.level);
                 }
                 newCalculatedStats[key] = calculatedStat;
             };

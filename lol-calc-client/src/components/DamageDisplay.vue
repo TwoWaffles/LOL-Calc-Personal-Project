@@ -65,18 +65,27 @@ export default {
 </script>
 <template>
     <div>
-        <h1 class="font-black">Output Damage</h1>
-        <div class="flex flex-col">
-            <h1 class="font-bold">Pre-Mitigation</h1>
-            <div>Physical Damage: {{ preMitigationDamage }}</div>
-            <div>Magical Damage: 0</div>
-            <div>Total Damage: {{ preMitigationDamage }}</div>
-        </div>
-        <div class="flex flex-col">
-            <h1 class="font-bold">Post-Mitigation</h1>
-            <div>Physical Damage: {{ postMitigationDamage }}</div>
-            <div>Magical Damage: 0</div>
-            <div>Total Damage: {{ postMitigationDamage }}</div>
-        </div>
+        <table class="w-full rounded-mb">
+            <thead>
+                <tr class="bg-gray-900">
+                    <th class="font-bold p-2">Pre-Mitigation</th>
+                    <th class="font-bold p-2">Post-Mitigation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-gray-700">
+                    <td class="p-2">Physical Damage: {{ preMitigationDamage }}</td>
+                    <td class="p-2">Physical Damage: {{ postMitigationDamage }}</td>
+                </tr>
+                <tr class="bg-gray-900">
+                    <td class="p-2">Magical Damage: 0</td>
+                    <td class="p-2">Magical Damage: 0</td>
+                </tr>
+                <tr class="bg-gray-700">
+                    <td class="p-2">Total Damage: {{ preMitigationDamage }}</td>
+                    <td class="p-2">Total Damage: {{ postMitigationDamage }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>

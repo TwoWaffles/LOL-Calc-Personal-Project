@@ -32,7 +32,8 @@ export default {
 
 <template>
     <div>
-        <div class="grid grid-cols-3 justify-items-center w-1/2 gap-y-4">
+        <h2 class="text-white text-2xl bg-gray-900 py-2 px-4 mb-4 rounded-xl text-center font-bold pb-4">Runes</h2>
+        <div class="grid grid-cols-3 bg-gray-900 py-4 px-4 rounded-xl justify-items-center w-full gap-y-4 mx-auto">
 
             <!-- Slot 0 Row -->
             <input type="radio" class="hidden peer/afr1" value="adaptiveForce" name="slot0" id="radio1"

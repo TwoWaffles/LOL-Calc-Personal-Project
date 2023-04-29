@@ -8,9 +8,11 @@ const PERCENT_STATS = [
     'magicPenetration',
     'lifesteal',
     'omnivamp',
+    'healthRegen',
+    'manaRegen'
 ];
 
-function calculateStat(key, value, level) {
+function calculateStat(value, level) {
     return (
         value.flat +
         value.perLevel * (level - 1) * (0.7025 + 0.0175 * (level - 1))
@@ -53,7 +55,9 @@ export const useChampionOneStore = defineStore('championOneStore', {
     getters: {
         computedStats() {
             const newCalculatedStats = this.calculateStatsWithItems();
+            if(this.key !== ""){
             this.applyRunes(newCalculatedStats);
+        }
             return newCalculatedStats;
         },
     },
@@ -84,7 +88,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
         calculateStatsWithItems() {
             const newCalculatedStats = {};
             for (const [key, value] of Object.entries(this.stats)) {
-              let calculatedStat = calculateStat(key, value, this.level);
+              let calculatedStat = calculateStat(value, this.level);
           
               if (this.itemsAdded) {
                 for (const item of Object.values(this.items)) {
@@ -103,6 +107,11 @@ export const useChampionOneStore = defineStore('championOneStore', {
                     calculatedStat = value.flat * (1 + bonusAttackSpeed / 100);
                 }
 
+                if(key === 'healthRegen'){
+                    calculateStat
+                }
+
+                //Calculating Bonus AD for Runes
                 if (key === 'attackDamage') {
                     newCalculatedStats.bonusAttackDamage =
                         calculatedStat - calculateStat(key, value, this.level);
