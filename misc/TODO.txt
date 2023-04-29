@@ -1,7 +1,5 @@
 
 Finish of the stats table:
-    displaying lethality and armour pen seperatley (magic pen, lifesteal) armour pen and crit also movespeed on phantom and stuff check comment is stored as %
-    MAGIC PEN IS STORED IN SAME AS FLAT AND %
     ALSO Movespeed can have %
 
     Mythic passives like kraken slayer
@@ -12,6 +10,10 @@ Finish of the stats table:
 
     Abilities
 
+
+- 
+- Figure out if vscode formatting fucks with your data
+
     
 
 
@@ -20,6 +22,8 @@ Finish of the stats table:
 Keep in mind:
 
 - JHIN attack speed doesn't work (his ratio is 0 makes sense)
+
+- % movespeed values ignored, too much effort to calculate
 
 - Graves is different ingame cause reloading, volibear/ekko works i guess 
 
@@ -30,6 +34,9 @@ Keep in mind:
 - Bonus attack damage may be a decimal and stuff
 
 - for runes had to add adaptive_type
+
+
+
 
 Notes:
 

@@ -88,7 +88,7 @@ export default {
     <div v-show="isVisible" class="absolute z-50 mt-2 py-2 w-full bg-gray-800 rounded-md shadow-lg select-none ...">
       <div class="relative">
         <input v-model="searchQuery" type="text"
-          class="block w-full rounded-md border-gray-300 bg-gray-100 text-white shadow-sm p-2 focus:ring-yellow-500 focus:border-gray-500"
+          class="block w-full rounded-md border-gray-300 bg-gray-100 text-black shadow-sm p-2 focus:ring-yellow-500 focus:border-gray-500"
           placeholder="Search for a Champion">
       </div>
 

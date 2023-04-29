@@ -110,7 +110,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
                     //Adding attack speed from rune
                     if (this.runes.slot0 === "attackSpeed") { calculatedStat += 10 }
                     //Scaling the attack speed based on a champions ratio (higher ratio = high gain from bonus attack speed)
-                    let scaledBonusAttackSpeed = (calculatedStat/100) * attackSpeedRatio;
+                    let scaledBonusAttackSpeed = (calculatedStat / 100) * attackSpeedRatio;
                     //Adding the base attack speed to scaled
                     let finalAttackSpeed = value.flat + scaledBonusAttackSpeed;
 
@@ -118,13 +118,15 @@ export const useChampionOneStore = defineStore('championOneStore', {
                     continue;
                 }
 
-                if(key === 'healthRegen' || key === 'manaRegen') {
+                if (key === 'healthRegen' || key === 'manaRegen') {
                     let finalRegen = calculateStat(value, this.level) * (1 + calculatedStat / 100)
                     //Special case where some health regen items give flat valuse
-                    if(key === "healthRegen"){
-                        for (const item of Object.values(this.items)) {
-                            if (item && item.stats[key]) {
-                                finalRegen += item.stats[key].flat
+                    if (this.itemsAdded) {
+                        if (key === "healthRegen") {
+                            for (const item of Object.values(this.items)) {
+                                if (item && item.stats[key]) {
+                                    finalRegen += item.stats[key].flat
+                                }
                             }
                         }
                     }
@@ -133,11 +135,13 @@ export const useChampionOneStore = defineStore('championOneStore', {
                     continue;
                 }
 
-                if(key === 'magicPenetration'){
+                if (key === 'magicPenetration') {
                     let flatMagicPenetration = 0
-                    for (const item of Object.values(this.items)) {
-                        if (item && item.stats[key]) {
-                            flatMagicPenetration += item.stats[key].flat
+                    if (this.itemsAdded) {
+                        for (const item of Object.values(this.items)) {
+                            if (item && item.stats[key]) {
+                                flatMagicPenetration += item.stats[key].flat
+                            }
                         }
                     }
 
@@ -147,7 +151,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
                 //Adding flat + perLevel scaling to the rest of stats
                 calculatedStat += calculateStat(value, this.level)
 
-               
+
 
                 //Calculating Bonus AD for Runes
                 if (key === 'attackDamage') {
