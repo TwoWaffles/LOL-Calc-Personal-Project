@@ -50,6 +50,9 @@ export const useChampionOneStore = defineStore('championOneStore', {
         },
         runes: { slot0: null, slot1: null, slot2: null },
         itemsAdded: false,
+        mythicAdded: false,
+        mythicValue: {},
+        amountOfLegendaries: 0
     }),
 
     getters: {
@@ -74,7 +77,39 @@ export const useChampionOneStore = defineStore('championOneStore', {
         async getItemData(itemId, itemSlotNumber) {
             const response = await ItemsService.getItemData(itemId);
             this.items['slot' + itemSlotNumber] = response.data;
+            this.checkForMythicAndLegendaries();
             this.itemsAdded = true;
+        },
+
+        checkForMythicAndLegendaries() {
+            let numberOfLegends = 0;
+            this.mythicAdded = false;
+            this.mythicValue = {};
+            for (const item of Object.values(this.items)) {
+                if (item) {
+                    if (item.rank[0] === "MYTHIC") {
+                        this.mythicAdded = true;
+                        let passiveOfItem = item.passives
+                        let mythicObj = passiveOfItem.find(passive => passive.mythic === true);
+                        if (mythicObj) {
+                            for (const [key, value] of Object.entries(mythicObj.stats)) {
+                                if (value.flat > 0 || value.percent > 0) {
+                                    console.log("Adding to mythicValue")
+                                    if (key === 'magicPenetration') {
+                                        this.mythicValue[key] = value.flat
+                                    } else { this.mythicValue[key] = isPercentStat(key) ? value.percent : value.flat }
+                                }
+                            }
+                        }
+                    }
+
+                    if (item.rank[0] === "LEGENDARY") {
+                        numberOfLegends += 1
+                    }
+                }
+            }
+
+            this.amountOfLegendaries = numberOfLegends;
         },
 
         setLevel(level) {
@@ -86,7 +121,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
         },
 
         calculateStatsWithItems() {
-            const newCalculatedStats = {};
+            const newCalculatedStats = {flatMagicPenetration: 0};
             //Loops through all stats, then adds item values
             for (const [key, value] of Object.entries(this.stats)) {
                 let calculatedStat = 0;
@@ -97,6 +132,20 @@ export const useChampionOneStore = defineStore('championOneStore', {
                             calculatedStat += isPercentStat(key)
                                 ? item.stats[key].percent
                                 : item.stats[key].flat;
+                        }
+                    }
+
+                    if (this.mythicAdded) {
+                        // for(const [mythicKey,mythicValue] of Object.entries(this.mythicValue)){
+                        //     if(key === mythicKey){
+
+                        //     }
+                        // }
+                        if (this.mythicValue[key]) {
+                            if(key === 'magicPenetration') {
+                                newCalculatedStats.flatMagicPenetration += (this.mythicValue[key] * this.amountOfLegendaries)
+                            }
+                            calculatedStat += (this.mythicValue[key] * this.amountOfLegendaries)
                         }
                     }
                 }
@@ -136,16 +185,16 @@ export const useChampionOneStore = defineStore('championOneStore', {
                 }
 
                 if (key === 'magicPenetration') {
-                    let flatMagicPenetration = 0
+                    let addingFlatMagicPenetration = 0
                     if (this.itemsAdded) {
                         for (const item of Object.values(this.items)) {
                             if (item && item.stats[key]) {
-                                flatMagicPenetration += item.stats[key].flat
+                                addingFlatMagicPenetration += item.stats[key].flat
                             }
                         }
                     }
 
-                    newCalculatedStats.flatMagicPenetration = flatMagicPenetration;
+                    newCalculatedStats.flatMagicPenetration += addingFlatMagicPenetration;
                 }
 
                 //Adding flat + perLevel scaling to the rest of stats
