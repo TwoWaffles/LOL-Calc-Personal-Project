@@ -53,7 +53,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
         mythicAdded: false,
         mythicValue: {},
         amountOfLegendaries: 0,
-        buildCost: 0
+        buildCost: 0,
+        nonMythicPassives: { name: "passiveEffect" }
     }),
 
     getters: {
@@ -87,6 +88,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
             this.mythicAdded = false;
             this.mythicValue = {};
             this.buildCost = 0;
+            this.nonMythicPassives = {};
+            let filteredMythicPassives = []
             for (const item of Object.values(this.items)) {
                 if (item) {
                     if (item.rank[0] === "MYTHIC") {
@@ -109,9 +112,20 @@ export const useChampionOneStore = defineStore('championOneStore', {
                         numberOfLegends += 1
                     }
 
+                    //Getting all non mythic passives
+                    const nonMythicPassivesOfItem = item.passives.filter(passive => passive.mythic === false);
+                    for (const passive of nonMythicPassivesOfItem) {
+                        filteredMythicPassives.push(passive);
+                    }
+                    //Calculating build cost
                     this.buildCost += item.shop.prices.total;
                 }
             }
+
+            this.nonMythicPassives = filteredMythicPassives.reduce((obj, passive) => {
+                obj[passive.name] = passive;
+                return obj;
+            }, {});
 
             this.amountOfLegendaries = numberOfLegends;
         },
@@ -125,7 +139,7 @@ export const useChampionOneStore = defineStore('championOneStore', {
         },
 
         calculateStatsWithItems() {
-            const newCalculatedStats = {flatMagicPenetration: 0};
+            const newCalculatedStats = { flatMagicPenetration: 0 };
             //Loops through all stats, then adds item values
             for (const [key, value] of Object.entries(this.stats)) {
                 let calculatedStat = 0;
@@ -140,13 +154,8 @@ export const useChampionOneStore = defineStore('championOneStore', {
                     }
 
                     if (this.mythicAdded) {
-                        // for(const [mythicKey,mythicValue] of Object.entries(this.mythicValue)){
-                        //     if(key === mythicKey){
-
-                        //     }
-                        // }
                         if (this.mythicValue[key]) {
-                            if(key === 'magicPenetration') {
+                            if (key === 'magicPenetration') {
                                 newCalculatedStats.flatMagicPenetration += (this.mythicValue[key] * this.amountOfLegendaries)
                             }
                             calculatedStat += (this.mythicValue[key] * this.amountOfLegendaries)
