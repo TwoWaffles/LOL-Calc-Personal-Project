@@ -87,7 +87,7 @@ export default {
       </div>
 
       <!-- Abilities Panel -->
-      <div class="px-6 py-4 bg-gray-800 rounded-2xl col-span-2 row-span-4 h-full">
+      <div class="px-6 py-4 bg-gray-800 rounded-2xl col-span-2 h-[31rem]">
         <h1 class="text-white text-3xl text-center font-bold pb-4">Abilities</h1>
         <AbilityDisplay v-if="!(championOneStore.key === '')" />
       </div>
