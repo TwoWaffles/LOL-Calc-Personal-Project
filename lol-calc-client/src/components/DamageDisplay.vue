@@ -14,6 +14,8 @@ export default {
     data() {
         return {}
     },
+
+    methods: {},
     computed: {
         getTargetStats() {
             if (this.damageSettingsStore.isTargetDummy) {
@@ -30,14 +32,15 @@ export default {
                 }
             }
         },
-        preMitigationDamage() {
+        preMitigationAttackDamage() {
             var autoAttackDamageDealt = 0;
             autoAttackDamageDealt = this.championOneStore.computedStats.attackDamage
 
             if (autoAttackDamageDealt) {
                 if (this.damageSettingsStore.isCrit) {
-                    if (this.championOneStore.nonMythicPassives.Perfection !== "undefined" && this.championOneStore.computedStats.criticalStrikeChance >= 40) {
-                        autoAttackDamageDealt = Math.ceil(autoAttackDamageDealt * 2)
+                    if (typeof this.championOneStore.nonMythicPassives.Perfection !== "undefined" && this.championOneStore.computedStats.criticalStrikeChance >= 40) {
+                        console.log("crit IE")
+                        autoAttackDamageDealt = Math.ceil(autoAttackDamageDealt * 2.1)
                     } else {
                         autoAttackDamageDealt = Math.ceil(autoAttackDamageDealt * 1.75)
                     }
@@ -47,7 +50,14 @@ export default {
             }
             return 0
         },
-        postMitigationDamage() {
+        preMitigationMagicDamage() {
+            let magicDamageDealt = 0
+            if(typeof this.championOneStore.nonMythicPassives.Sharpshooter !== "undefined"){
+                magicDamageDealt += 120;
+            }
+            return magicDamageDealt
+        },
+        postMitigationAttackDamage() {
             // var targetArmor = this.championTargetStore.targetDummyArmor;
             var targetArmor = this.getTargetStats.armor
 
@@ -74,8 +84,8 @@ export default {
                 var mitigatedDamage = attackerAttackDamage * (100 / (100 + targetArmor))
 
                 if (this.damageSettingsStore.isCrit) {
-                    if (this.championOneStore.nonMythicPassives.Perfection !== "undefined" && this.championOneStore.computedStats.criticalStrikeChance >= 40) {
-                        mitigatedDamage = (mitigatedDamage * 2)
+                    if (typeof this.championOneStore.nonMythicPassives.Perfection !== "undefined" && this.championOneStore.computedStats.criticalStrikeChance >= 40) {
+                        mitigatedDamage = (mitigatedDamage * 2.1)
                     } else {
                         mitigatedDamage = (mitigatedDamage * 1.75)
                     }
@@ -85,13 +95,9 @@ export default {
             }
 
             return 0
-        },
-        calculateArmorPen() {
-
         }
 
     },
-    methods: {}
 }
 </script>
 <template>
@@ -105,16 +111,16 @@ export default {
             </thead>
             <tbody>
                 <tr class="bg-gray-700">
-                    <td class="p-2">Physical Damage: {{ preMitigationDamage }}</td>
-                    <td class="p-2">Physical Damage: {{ postMitigationDamage }}</td>
+                    <td class="p-2">Physical Damage: {{ preMitigationAttackDamage }}</td>
+                    <td class="p-2">Physical Damage: {{ postMitigationAttackDamage }}</td>
                 </tr>
                 <tr class="bg-gray-900">
-                    <td class="p-2">Magical Damage: 0</td>
+                    <td class="p-2">Magical Damage: {{ preMitigationMagicDamage }}</td>
                     <td class="p-2">Magical Damage: 0</td>
                 </tr>
                 <tr class="bg-gray-700">
-                    <td class="p-2">Total Damage: {{ preMitigationDamage }}</td>
-                    <td class="p-2">Total Damage: {{ postMitigationDamage }}</td>
+                    <td class="p-2">Total Damage: {{ preMitigationAttackDamage + preMitigationMagicDamage }}</td>
+                    <td class="p-2">Total Damage: idk</td>
                 </tr>
             </tbody>
         </table>

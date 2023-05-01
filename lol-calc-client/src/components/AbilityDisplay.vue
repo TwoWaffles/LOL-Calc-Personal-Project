@@ -8,30 +8,59 @@ export default {
         return { championOneStore };
     },
     data() {
-        return {};
+        return {
+            currentAbility: "P"
+        };
     },
     computed: {
-        getAbilities() {
+        getAbilitiesIcons() {
             return this.championOneStore.abilities;
         },
+        getAbilities() {
+            return this.championOneStore.abilities[this.currentAbility]
+        }
     }
 }
 </script>
 
 <template>
-    <div class="flex col border-2">
+    <div>
+        <!-- Ability Row -->
+        <div class="flex flex-row justify-center pb-2">
 
-        <!-- Passive -->
-        <div>
-            <h2 class="text-white text-md text-center font-bold">P: {{
-                getAbilities.P[0].name }}</h2>
-            <img :src="getAbilities.P[0].icon" class="w-10 h-10">
-            <ul>
-                <li v-for="effect in getAbilities.P[0].effects" :key="getAbilities.P[0].effects.description" class="text-white text-xs border">
-                {{ effect.description }}
+            <input type="radio" class="hidden peer/p1" value="P" name="abilities" id="abilityP" v-model="currentAbility">
+            <label class="cursor-pointer border-transparent border-2 peer-checked/p1:border-yellow-500" for="abilityP">
+                <img :src="getAbilitiesIcons.P[0].icon">
+            </label>
+
+            <input type="radio" class="hidden peer/q1" value="Q" name="abilities" id="abilityQ" v-model="currentAbility">
+            <label class="cursor-pointer border-transparent border-2 peer-checked/q1:border-yellow-500" for="abilityQ">
+                <img :src="getAbilitiesIcons.Q[0].icon">
+            </label>
+
+            <input type="radio" class="hidden peer/w1" value="W" name="abilities" id="abilityW" v-model="currentAbility">
+            <label class="cursor-pointer border-transparent border-2 peer-checked/w1:border-yellow-500" for="abilityW">
+                <img :src="getAbilitiesIcons.W[0].icon">
+            </label>
+
+            <input type="radio" class="hidden peer/e1" value="E" name="abilities" id="abilityE" v-model="currentAbility">
+            <label class="cursor-pointer border-transparent border-2 peer-checked/e1:border-yellow-500" for="abilityE">
+                <img :src="getAbilitiesIcons.E[0].icon">
+            </label>
+
+            <input type="radio" class="hidden peer/r1" value="R" name="abilities" id="abilityR" v-model="currentAbility">
+            <label class="cursor-pointer border-transparent border-2 peer-checked/r1:border-yellow-500" for="abilityR">
+                <img :src="getAbilitiesIcons.R[0].icon">
+            </label>
+        </div>
+
+        <div class="">
+            <ul class="">
+                <li v-for="(effect, index) in getAbilities[0].effects" :key="getAbilities[0].effects.description"
+                    :class="index % 2 === 0 ? 'bg-gray-900' : 'bg-gray-700'" class="text-white text-sm p-1">
+                    {{ effect.description }}
                 </li>
             </ul>
-
         </div>
     </div>
 </template>
