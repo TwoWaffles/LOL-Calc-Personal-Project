@@ -23,7 +23,7 @@ export default {
 
         <!-- Passive -->
         <div>
-            <h2 class="text-white text-md text-center font-bold">Q: {{
+            <h2 class="text-white text-md text-center font-bold">P: {{
                 getAbilities.P[0].name }}</h2>
             <img :src="getAbilities.P[0].icon" class="w-10 h-10">
             <ul>

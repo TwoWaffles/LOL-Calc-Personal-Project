@@ -73,7 +73,7 @@ export default {
     </div>
 
     <!-- Third Section Grid -->
-    <div class="grid grid-cols-2 grid-rows-4 row-span-1 gap-4 w-2/4">
+    <div class="grid grid-cols-2 gap-4 w-2/4">
       <!-- Damage Settings Panel -->
       <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
         <h1 class="text-white text-3xl text-center font-bold pb-4">Damage Settings</h1>
@@ -82,13 +82,13 @@ export default {
       </div>
 
       <!-- Damage Display Panel -->
-      <div class="px-6 py-4 bg-gray-800 row-span-1 w-full rounded-2xl">
+      <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
         <h1 class="text-white text-3xl text-center font-bold pb-4">Damage Output</h1>
         <DamageDisplay class="text-white"></DamageDisplay>
       </div>
 
       <!-- Abilities Panel -->
-      <div class="bg-gray-800 rounded-2xl row-span-2 col-span-2">
+      <div class="bg-gray-800 rounded-2xl col-span-2">
         <AbilityDisplay v-if="!(championOneStore.key === '')" />
       </div>
     </div>

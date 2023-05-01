@@ -36,7 +36,11 @@ export default {
 
             if (autoAttackDamageDealt) {
                 if (this.damageSettingsStore.isCrit) {
-                    autoAttackDamageDealt = Math.ceil(autoAttackDamageDealt * 1.75)
+                    if (this.championOneStore.nonMythicPassives.Perfection !== "undefined" && this.championOneStore.computedStats.criticalStrikeChance >= 40) {
+                        autoAttackDamageDealt = Math.ceil(autoAttackDamageDealt * 2)
+                    } else {
+                        autoAttackDamageDealt = Math.ceil(autoAttackDamageDealt * 1.75)
+                    }
                 }
 
                 return autoAttackDamageDealt
@@ -70,7 +74,11 @@ export default {
                 var mitigatedDamage = attackerAttackDamage * (100 / (100 + targetArmor))
 
                 if (this.damageSettingsStore.isCrit) {
-                    mitigatedDamage = (mitigatedDamage * 1.75) //TODO Infinity Edge
+                    if (this.championOneStore.nonMythicPassives.Perfection !== "undefined" && this.championOneStore.computedStats.criticalStrikeChance >= 40) {
+                        mitigatedDamage = (mitigatedDamage * 2)
+                    } else {
+                        mitigatedDamage = (mitigatedDamage * 1.75)
+                    }
                 }
 
                 return Math.round(mitigatedDamage)
