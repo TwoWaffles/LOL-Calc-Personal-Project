@@ -10,25 +10,25 @@ export default {
     data() {
  
         return {
-            health: this.championTargetStore.targetHealth,
-            armor: this.championTargetStore.targetArmor,
-            magicResistance: this.championTargetStore.targetMagicResistance,
+            health: this.championTargetStore.targetDummyHealth,
+            armor: this.championTargetStore.targetDummyArmor,
+            magicResistance: this.championTargetStore.targetDummyMagicResistance,
         };
     },
     methods: {
         updateHealth() {
             if (this.health > 0) {
-                this.championTargetStore.setTargetHealth(this.health);
+                this.championTargetStore.setTargetDummyHealth(this.health);
             }
         },
         updateArmor() {
             if (this.armor > 0) {
-                this.championTargetStore.setTargetArmor(this.armor);
+                this.championTargetStore.setTargetDummyArmor(this.armor);
             }
         },
         updateMagicResistance() {
             if (this.magicResistance > 0) {
-                this.championTargetStore.setTargetMagicResistance(this.magicResistance);
+                this.championTargetStore.setTargetDummyMagicResistance(this.magicResistance);
             }
         },
     },

@@ -55,9 +55,9 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
         amountOfLegendaries: 0,
         buildCost: 0,
         nonMythicPassives: { name: "passiveEffect" },
-        targetHealth: 100,
-        targetArmor: 0,
-        targetMagicResistance: 0
+        targetDummyHealth: 100,
+        targetDummyArmor: 0,
+        targetDummyMagicResistance: 0
 
     }),
 
@@ -87,16 +87,16 @@ export const useChampionTargetStore = defineStore('championTargetStore', {
             this.itemsAdded = true;
         },
         
-        setTargetHealth(health) {
-            this.targetHealth = health;
+        setTargetDummyHealth(health) {
+            this.targetDummyHealth = health;
         },
 
-        setTargetArmor(armor) {
-            this.targetArmor = armor;
+        setTargetDummyArmor(armor) {
+            this.targetDummyArmor = armor;
         },
 
-        setTargetMagicResistance(magicResistance) {
-            this.targetMagicResistance = magicResistance;
+        setTargetDummyMagicResistance(magicResistance) {
+            this.targetDummyMagicResistance = magicResistance;
         },
 
         checkForMythicsAndPrice() {

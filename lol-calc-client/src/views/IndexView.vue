@@ -84,7 +84,7 @@ export default {
 
       <DamageSettings></DamageSettings>
       <DamageToggle />
-      <AbilityDisplay />
+      <AbilityDisplay v-if="!(championOneStore.key === '')" />
     </div>
 
     <!-- Fourth box -->
