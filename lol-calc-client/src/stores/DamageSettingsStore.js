@@ -26,12 +26,6 @@ export const useDamageSettingsStore = defineStore('damageSettingsStore', {
             this.isCrit = !this.isCrit
         },
         toggleAbility(type) {
-            const abilities = ['Q', 'W', 'E', 'R'];
-            for (const ability of abilities) {
-              if (ability !== type) {
-                this[`is${ability}`] = false;
-              }
-            }
             this[`is${type}`] = !this[`is${type}`];
           }          
     }

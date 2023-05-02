@@ -141,8 +141,8 @@ function filterChampionNamesAndIconsFromData(callback) {
 
 router.get('/updateChampionData', (req, res) => {
 
-    res.send("LOL");
-    //TODO: figure out how to update data
+    res.send("test");
+    //TODO: not implemented, would cause server to update its cache.
 
 });
 
