@@ -8,7 +8,8 @@ export const useDamageSettingsStore = defineStore('damageSettingsStore', {
         isQ: false,
         isW: false,
         isE: false,
-        isR: false
+        isR: false,
+        totalMagicDamage: 0
     }),
  
     getters: {

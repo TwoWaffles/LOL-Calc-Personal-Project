@@ -1,13 +1,13 @@
 <script>
 import { useChampionOneStore } from '../stores/ChampionOneStore';
 import { useChampionTargetStore } from '../stores/ChampionTargetStore';
- 
+
 const STATS_TO_DISPLAY = ["attackDamage", "abilityPower", "armor", "magicResistance", "attackSpeed", "abilityHaste", "criticalStrikeChance", "movespeed", "healthRegen", "manaRegen"];
 export default {
     setup() {
         const championOneStore = useChampionOneStore();
         const championTargetStore = useChampionTargetStore();
- 
+
         return { championOneStore, championTargetStore };
     },
     data() {
@@ -29,6 +29,12 @@ export default {
                 100
             );
         },
+        percentReductionMr() {
+            return Math.round(
+                (this.getStore.computedStats.magicResistance /
+                    (this.getStore.computedStats.magicResistance + 100)) * 100
+            )
+        },
         getResource() {
             if (this.getStore.resource === 'MANA') {
                 return this.roundNumber(this.getStore.computedStats.mana, 0);
@@ -38,7 +44,7 @@ export default {
     },
     methods: {
         roundNumber(num, dec) {
-            return num ? +(Math.round(num + "e+" + dec)  + "e-" + dec) : 0;
+            return num ? +(Math.round(num + "e+" + dec) + "e-" + dec) : 0;
         }
     },
 };
@@ -51,7 +57,7 @@ export default {
             <tr>
                 <td class="py-2 px-2 w-1/2">
                     <img src="/src/assets/statIcons/health_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.health}}</span>
+                    <span>{{ getStore.computedStats.health }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/mana_icon.png" class="h-5 w-5 inline-block mr-2">
@@ -65,17 +71,19 @@ export default {
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/abilityPower_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.abilityPower ?? 0}}</span>
+                    <span>{{ getStore.computedStats.abilityPower ?? 0 }}</span>
                 </td>
             </tr>
             <tr>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/armor_Icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{getStore.computedStats.armor }} | {{ percentReductionArmor ? percentReductionArmor + "%" : 0 }}</span>
+                    <span>{{ getStore.computedStats.armor }} | {{ percentReductionArmor ? percentReductionArmor + "%" : 0
+                    }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/magicResistance_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.magicResistance }}</span>
+                    <span>{{ getStore.computedStats.magicResistance }} | {{ percentReductionMr ? percentReductionMr + "%" : 0
+                    }}</span>
                 </td>
             </tr>
             <tr class="bg-gray-700">
@@ -85,7 +93,7 @@ export default {
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/abilityHaste_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.abilityHaste ?? 0}}</span>
+                    <span>{{ getStore.computedStats.abilityHaste ?? 0 }}</span>
                 </td>
             </tr>
             <tr>
@@ -95,7 +103,7 @@ export default {
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/movespeed_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.movespeed ?? 0}}</span>
+                    <span>{{ getStore.computedStats.movespeed ?? 0 }}</span>
                 </td>
             </tr>
             <tr class="bg-gray-700">
@@ -111,11 +119,13 @@ export default {
             <tr>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/armorPenetration_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.lethality ?? 0}} | {{ (getStore.computedStats.armorPenetration ?? 0) + "%"}}</span>
+                    <span>{{ getStore.computedStats.lethality ?? 0 }} | {{ (getStore.computedStats.armorPenetration ?? 0) +
+                        "%" }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/magicPenetration_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span> {{getStore.computedStats.flatMagicPenetration ?? 0}} | {{ (getStore.computedStats.magicPenetration ?? 0) + "%" }}</span>
+                    <span> {{ getStore.computedStats.flatMagicPenetration ?? 0 }} | {{
+                        (getStore.computedStats.magicPenetration ?? 0) + "%" }}</span>
                 </td>
             </tr>
             <tr class="bg-gray-700">
@@ -139,5 +149,4 @@ export default {
                 </td>
             </tr>
         </table>
-    </div>
-</template>
+</div></template>
