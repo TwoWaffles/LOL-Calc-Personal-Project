@@ -1,8 +1,6 @@
 <script>
 import { useChampionOneStore } from '../stores/ChampionOneStore';
 import { useChampionTargetStore } from '../stores/ChampionTargetStore';
-
-const STATS_TO_DISPLAY = ["attackDamage", "abilityPower", "armor", "magicResistance", "attackSpeed", "abilityHaste", "criticalStrikeChance", "movespeed", "healthRegen", "manaRegen"];
 export default {
     setup() {
         const championOneStore = useChampionOneStore();
@@ -12,8 +10,7 @@ export default {
     },
     data() {
         return {
-            STATS_TO_DISPLAY: STATS_TO_DISPLAY
-        };
+        }
     },
     props: {
         isChampionOne: Boolean,

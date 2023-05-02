@@ -1,3 +1,18 @@
+ 
+<script>
+import { useDamageSettingsStore } from '../stores/DamageSettingsStore';
+ 
+export default {
+    setup() {
+        const damageSettingsStore = useDamageSettingsStore();
+ 
+        return { damageSettingsStore }
+    },
+    data() {
+        return {}
+    },
+}
+</script>
 <template>
     <div class="pt-4">
         <h2 class="text-white text-2xl bg-gray-900 py-2 px-4 mb-4 rounded-xl text-center font-bold">Damage Toggle</h2>
@@ -36,18 +51,3 @@
         </table>
     </div>
 </template>
- 
-<script>
-import { useDamageSettingsStore } from '../stores/DamageSettingsStore';
- 
-export default {
-    setup() {
-        const damageSettingsStore = useDamageSettingsStore();
- 
-        return { damageSettingsStore }
-    },
-    data() {
-        return {}
-    },
-}
-</script>
