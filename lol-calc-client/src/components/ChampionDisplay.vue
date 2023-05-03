@@ -54,7 +54,7 @@ export default {
             <tr>
                 <td class="py-2 px-2 w-1/2">
                     <img src="/src/assets/statIcons/health_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.health }}</span>
+                    <span>{{ this.roundNumber(getStore.computedStats.health,0) }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/mana_icon.png" class="h-5 w-5 inline-block mr-2">
@@ -64,7 +64,7 @@ export default {
             <tr class="bg-gray-700">
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/attackDamage_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.attackDamage }}</span>
+                    <span>{{ this.roundNumber(getStore.computedStats.attackDamage,1) }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/abilityPower_icon.png" class="h-5 w-5 inline-block mr-2">
@@ -74,19 +74,20 @@ export default {
             <tr>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/armor_Icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.armor }} | {{ percentReductionArmor ? percentReductionArmor + "%" : 0
+                    <span>{{ this.roundNumber(getStore.computedStats.armor,0) }} | {{ percentReductionArmor ? percentReductionArmor + "%" : 0
                     }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/magicResistance_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.magicResistance }} | {{ percentReductionMr ? percentReductionMr + "%" : 0
+                    <span>{{ this.roundNumber(getStore.computedStats.magicResistance,0) }} | {{ percentReductionMr ? percentReductionMr + "%" :
+                        0
                     }}</span>
                 </td>
             </tr>
             <tr class="bg-gray-700">
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/attackSpeed_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.attackSpeed }}</span>
+                    <span>{{ this.roundNumber(getStore.computedStats.attackSpeed,3) }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/abilityHaste_icon.png" class="h-5 w-5 inline-block mr-2">
@@ -106,11 +107,11 @@ export default {
             <tr class="bg-gray-700">
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/healthRegen_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.healthRegen }}</span>
+                    <span>{{ this.roundNumber(getStore.computedStats.healthRegen,1) }}</span>
                 </td>
                 <td class="py-2 px-2">
                     <img src="/src/assets/statIcons/manaRegen_icon.png" class="h-5 w-5 inline-block mr-2">
-                    <span>{{ getStore.computedStats.manaRegen }}</span>
+                    <span>{{ this.roundNumber(getStore.computedStats.manaRegen,1) }}</span>
                 </td>
             </tr>
             <tr>
@@ -146,4 +147,5 @@ export default {
                 </td>
             </tr>
         </table>
-</div></template>
+    </div>
+</template>

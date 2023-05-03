@@ -26,7 +26,5 @@ export default {
         <button class="rounded-md py-2 px-2 border-2 bg-gray-700 font-bold border-solid hover:bg-gray-900" :class="damageSettingsStore.isTargetDummy ? 'bg-yellow-700' : 'text-white'" @click="damageSettingsStore.toggleIsTargetDummy">
             Toggle Target Dummy
         </button>
-
-        <!-- <h2 class="font-bold">Abilities Display</h2> -->
     </div>
 </template>

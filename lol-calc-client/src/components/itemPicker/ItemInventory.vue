@@ -82,7 +82,8 @@ export default {
  
 <template>
     <div>
-        <div class="flex flex-row justify-between mt-2 mx-auto text-white bg-gray-900 py-2 px-2 rounded-tl-xl rounded-tr-xl rounded-bl-xl">
+        <div
+            class="flex flex-row justify-between mt-2 mx-auto text-white bg-gray-900 py-2 px-2 rounded-tl-xl rounded-tr-xl rounded-bl-xl">
             <div @click="inventorySlotOnClick(0)" class="single-item-empty"
                 :class="{ 'border-solid border-yellow-500': selectedItemSlot === 0 }">
                 <font-awesome-icon v-if="inventoryArray[0] === null" icon="fa-solid fa-plus" size="2xs" />
@@ -115,7 +116,8 @@ export default {
             </div>
         </div>
 
-        <div class="bg-gray-900 px-2 text-center rounded-b-lg text-white float-right">Gold Cost: {{ this.isChampionOne ? this.championOneStore.buildCost : this.championTargetStore.buildCost}}</div>
+        <div class="bg-gray-900 px-2 text-center rounded-b-lg text-white float-right">Gold Cost: {{ this.isChampionOne ?
+            this.championOneStore.buildCost : this.championTargetStore.buildCost }}</div>
         <div class="relative">
             <div class="p-4">
                 <div v-show="isVisible" class="absolute inset-0">

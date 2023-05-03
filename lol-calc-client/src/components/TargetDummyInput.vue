@@ -17,17 +17,17 @@ export default {
     },
     methods: {
         updateHealth() {
-            if (this.health > 0) {
+            if (this.health >= 0) {
                 this.championTargetStore.setTargetDummyHealth(this.health);
             }
         },
         updateArmor() {
-            if (this.armor > 0) {
+            if (this.armor >= 0) {
                 this.championTargetStore.setTargetDummyArmor(this.armor);
             }
         },
         updateMagicResistance() {
-            if (this.magicResistance > 0) {
+            if (this.magicResistance >= 0) {
                 this.championTargetStore.setTargetDummyMagicResistance(this.magicResistance);
             }
         },

@@ -19,5 +19,4 @@ app.use('/champions', championsRouter);
 //getChampionsJSON();
 //filterChampionNamesAndIconsFromData();
 
-// TODO check this against the tutorial on why its 8081 and not lke 8080
 app.listen(process.env.PORT || 8081);

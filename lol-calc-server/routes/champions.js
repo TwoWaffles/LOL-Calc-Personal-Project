@@ -162,7 +162,6 @@ router.get('/getChampionData', (req,res) => {
     });
 });
 
-//do refresher on promises and async use the simple web dev guy
 
 
 

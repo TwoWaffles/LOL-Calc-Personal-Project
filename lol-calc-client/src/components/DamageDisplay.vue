@@ -50,20 +50,21 @@ export default {
                     }
                 }
 
-                return this.roundNumber(autoAttackDamageDealt,0)
+                return this.roundNumber(autoAttackDamageDealt, 0)
             }
             return 0
         },
         preMitigationMagicDamage() {
-            if(typeof this.championOneStore.nonMythicPassives.Sharpshooter !== "undefined"){
+            this.damageSettingsStore.totalMagicDamage = 0
+            if (typeof this.championOneStore.nonMythicPassives.Sharpshooter !== "undefined") {
                 this.damageSettingsStore.totalMagicDamage += 120;
             }
 
-            if(typeof this.championOneStore.nonMythicPassives.Paralyze !== "undefined"){
+            if (typeof this.championOneStore.nonMythicPassives.Paralyze !== "undefined") {
                 this.damageSettingsStore.totalMagicDamage += 120;
             }
 
-            if(typeof this.championOneStore.nonMythicPassives.Jolt !== "undefined"){
+            if (typeof this.championOneStore.nonMythicPassives.Jolt !== "undefined") {
                 this.damageSettingsStore.totalMagicDamage += 80;
             }
             return this.damageSettingsStore.totalMagicDamage
@@ -77,16 +78,20 @@ export default {
 
             targetMr = targetMr * (1 - attackerMagicPenetration);
 
-            if(attackerFlatMagicPenetration > 0) {
-                if((targetMr - attackerFlatMagicPenetration) < 0) {
+            if (attackerFlatMagicPenetration > 0) {
+                if ((targetMr - attackerFlatMagicPenetration) < 0) {
                     targetMr = 0
                 } else {
                     targetMr = targetMr - attackerFlatMagicPenetration
                 }
             }
 
-            let mitigatedDamage = this.damageSettingsStore.totalMagicDamage * (100 / (100 + targetMr))
-            return mitigatedDamage
+            let mitigatedDamage = 0
+            //console.log(mitigatedDamage)
+            console.log(targetMr)
+            mitigatedDamage = this.damageSettingsStore.totalMagicDamage * (100 / (100 + targetMr))
+            //console.log(mitigatedDamage)
+            return this.roundNumber(mitigatedDamage,0)
 
 
         },
@@ -149,15 +154,18 @@ export default {
                 </tr>
                 <tr class="bg-gray-900">
                     <td class="p-2">Magical Damage: {{ preMitigationMagicDamage }}</td>
-                    <td class="p-2">Magical Damage: {{ postMitigationMagicDamage}}</td>
+                    <td class="p-2">Magical Damage: {{ postMitigationMagicDamage }}</td>
                 </tr>
                 <tr class="bg-gray-700">
                     <td class="p-2">Total Damage: {{ preMitigationAttackDamage + preMitigationMagicDamage }}</td>
-                    <td class="p-2">Total Damage: {{ postMitigationAttackDamage + postMitigationMagicDamage}}</td>
+                    <td class="p-2">Total Damage: {{ postMitigationAttackDamage + postMitigationMagicDamage }}</td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="bg-gray-900 mt-4 p-2 text-center rounded-xl">Health Remaining: {{ this.getTargetStats.health - (postMitigationAttackDamage + postMitigationMagicDamage)}} | {{ ((  (this.getTargetStats.health - (postMitigationAttackDamage + postMitigationMagicDamage))/ this.getTargetStats.health) * 100).toFixed(2) }}%</div>
+        <div class="bg-gray-900 mt-4 p-2 text-center rounded-xl">Health Remaining: {{ this.roundNumber((this.getTargetStats.health -
+            (postMitigationAttackDamage + postMitigationMagicDamage)),0) }} | {{ (((this.getTargetStats.health -
+        (postMitigationAttackDamage + postMitigationMagicDamage)) / this.getTargetStats.health) * 100).toFixed(2) }}%
+        </div>
     </div>
 </template>

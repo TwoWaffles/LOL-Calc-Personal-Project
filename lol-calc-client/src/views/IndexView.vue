@@ -41,7 +41,6 @@ export default {
   methods: {}
 }
 </script>
- <!-- TODO: fix bugs with swapping shit -->
 <template>
   <div class="flex flex-row justify-between px-12 py-8 gap-4 mx-auto h-screen">
     <!-- First panel -->

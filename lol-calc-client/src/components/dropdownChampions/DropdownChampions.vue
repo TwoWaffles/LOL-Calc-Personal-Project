@@ -69,7 +69,6 @@ export default {
   <section class="relative">
     <div @click="isVisible = !isVisible"
       class="border border-gray-900 bg-gray-500 rounded-md p-2 flex justify-between items-center cursor-pointer h-12">
-      <!-- <span class="text-black-800">{{ selectedChampion ? selectedChampion[0] && selectedChampion[1] : 'Select a Champion' }}</span> -->
       <span v-if="selectedChampion" class="text-black-800">
         <div class="flex flex-row items-center">
           <img :src="selectedChampion[1]" class="h-8 w-8 rounded-full">
