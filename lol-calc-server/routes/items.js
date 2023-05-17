@@ -135,7 +135,7 @@ router.get('/getItemData', (req, res) => {
   })
 });
 
-
+fixItemsFileFormat();
 
 
 
