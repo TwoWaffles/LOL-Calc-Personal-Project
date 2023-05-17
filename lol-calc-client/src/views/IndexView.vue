@@ -71,25 +71,26 @@ export default {
     </div>
 
     <!-- Third Section Grid -->
-    <div class="grid grid-cols-2 gap-4 h-full w-1/2">
-      <!-- Damage Settings Panel -->
-      <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
-        <h1 class="text-white text-3xl text-center font-bold pb-3">Damage Settings</h1>
-        <DamageSettings></DamageSettings>
-        <DamageToggle />
-      </div>
+<div class="grid grid-cols-2 gap-4 h-full w-1/2" style="grid-template-rows: 1fr 2fr;">
+  <!-- Damage Settings Panel -->
+  <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
+    <h1 class="text-white text-3xl text-center font-bold pb-3">Damage Settings</h1>
+    <DamageSettings></DamageSettings>
+    <DamageToggle />
+  </div>
 
-      <!-- Damage Display Panel -->
-      <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
-        <h1 class="text-white text-3xl text-center font-bold pb-3">Damage Output</h1>
-        <DamageDisplay class="text-white"></DamageDisplay>
-      </div>
+  <!-- Damage Display Panel -->
+  <div class="px-6 py-4 bg-gray-800 w-full rounded-2xl">
+    <h1 class="text-white text-3xl text-center font-bold pb-3">Damage Output</h1>
+    <DamageDisplay class="text-white"></DamageDisplay>
+  </div>
 
-      <!-- Abilities Panel -->
-      <div class="px-6 py-4 bg-gray-800 rounded-2xl col-span-2 row-span-4">
-        <h1 class="text-white text-3xl text-center font-bold pb-4">Abilities</h1>
-        <AbilityDisplay v-if="!(championOneStore.key === '')" />
-      </div>
-    </div>
+  <!-- Abilities Panel -->
+  <div class="px-6 py-4 bg-gray-800 rounded-2xl col-span-2">
+    <h1 class="text-white text-3xl text-center font-bold pb-4">Abilities</h1>
+    <AbilityDisplay v-if="!(championOneStore.key === '')" />
+  </div>
+</div>
+
   </div>
 </template>
