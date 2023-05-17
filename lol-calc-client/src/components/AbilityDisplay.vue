@@ -54,13 +54,15 @@ export default {
             </label>
         </div>
 
-        <div class="">
-            <ul class="">
-                <li v-for="(effect, index) in getAbilities[0].effects" :key="getAbilities[0].effects.description"
-                    :class="index % 2 === 0 ? 'bg-gray-900' : 'bg-gray-700'" class="text-white text-sm p-1">
-                    {{ effect.description }}
-                </li>
-            </ul>
+        <div class="px-2 relative">
+            <div class="absolute w-full">
+                <ul class="">
+                    <li v-for="(effect, index) in getAbilities[0].effects" :key="getAbilities[0].effects.description"
+                        :class="index % 2 === 0 ? 'bg-gray-900' : 'bg-gray-700'" class="text-white text-sm p-1">
+                        {{ effect.description }}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
